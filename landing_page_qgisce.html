@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portal de Descargas QGisce</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,700&display=swap" rel="stylesheet">
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        canopy: '#104336',
+                        'mint-pulse': '#0fff87',
+                        'orb-violet': '#7c18d3',
+                        'cream-paper': '#f3f1ec',
+                        'sheet-white': '#ffffff',
+                        bark: '#101f1e',
+                        ink: '#000000',
+                        slate: '#535e5d',
+                        'sage-mist': '#afc4bf',
+                        'pale-sage': '#c2cec8',
+                    },
+                    fontFamily: {
+                        sans: ['"DM Sans"', 'sans-serif'],
+                    },
+                    letterSpacing: {
+                        eyebrow: '0.07em',
+                        heading: '-0.02em',
+                    },
+                    borderRadius: {
+                        'input': '4px',
+                        'btn': '8px',
+                        'card': '16px',
+                        'pill': '9999px'
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        /* Arcadia Base Settings */
+        body {
+            background-color: #f3f1ec; /* Cream Paper */
+            color: #101f1e; /* Bark */
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        /* Hero Gradient Wash */
+        .hero-wash {
+            background: linear-gradient(212.12deg, #afc4bf 14.83%, #e8e7f5 52.99%, #f1eee9 79.47%);
+        }
+
+        /* Custom Scrollbar for code blocks */
+        .code-scroll::-webkit-scrollbar {
+            height: 6px;
+        }
+        .code-scroll::-webkit-scrollbar-track {
+            background: #f3f1ec; 
+            border-radius: 4px;
+        }
+        .code-scroll::-webkit-scrollbar-thumb {
+            background: #afc4bf; 
+            border-radius: 4px;
+        }
+    </style>
+</head>
+<body class="font-sans antialiased text-bark bg-cream-paper min-h-screen flex flex-col">
+
+    <div class="bg-canopy text-white py-[10px] px-4 text-center w-full">
+        <p class="text-[13px] md:text-[14px] font-normal leading-tight">
+            Última versión disponible: <strong>v1.2.10</strong> <span class="mx-2 opacity-60">|</span> Compatible con QGis v3.44.7
+        </p>
+    </div>
+
+    <nav class="sticky top-0 z-50 bg-sheet-white h-[72px] flex items-center border-b border-sage-mist px-6 lg:px-12 w-full">
+        <div class="max-w-[1200px] mx-auto w-full flex justify-between items-center">
+            <!-- Brand -->
+            <div class="flex items-center gap-2">
+                <i data-lucide="map" class="text-canopy w-6 h-6"></i>
+                <span class="text-canopy text-[20px] font-medium tracking-tight">QGisce</span>
+            </div>
+            
+            <!-- Desktop Nav Links -->
+            <div class="hidden md:flex items-center gap-8">
+                <a href="#novedades" class="text-[14px] text-bark hover:text-canopy transition-colors font-normal">Novedades</a>
+                <a href="#instalacion" class="text-[14px] text-bark hover:text-canopy transition-colors font-normal">Instalación</a>
+                <a href="#soporte" class="text-[14px] text-bark hover:text-canopy transition-colors font-normal">Contacto</a>
+            </div>
+
+            <!-- CTA -->
+            <div>
+                <a href="#soporte" class="inline-flex items-center justify-center px-[24px] py-[15px] border border-canopy text-canopy rounded-btn text-[14px] font-medium hover:bg-canopy hover:text-white transition-colors bg-transparent">
+                    Soporte
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <header class="hero-wash relative w-full pt-[80px] pb-[100px] md:pt-[120px] md:pb-[140px] px-6">
+        <div class="max-w-[1200px] mx-auto text-center flex flex-col items-center">
+            
+            <span class="text-[13px] font-bold text-mint-pulse uppercase tracking-eyebrow mb-6">
+                Actualización Disponible
+            </span>
+            
+            <h1 class="text-[40px] md:text-[56px] font-light text-ink leading-[1.1] tracking-heading max-w-4xl mb-6">
+                Portal de Descargas QGisce
+            </h1>
+            
+            <p class="text-[18px] text-slate font-normal leading-[1.5] max-w-2xl mb-10">
+                Repositorio oficial de versiones para la integración QGIS-GISCE. Accede a las herramientas, correcciones y mejoras de rendimiento más recientes.
+            </p>
+            
+            <a href="#instalacion" class="inline-flex items-center justify-center bg-mint-pulse text-bark px-[24px] py-[16px] rounded-btn text-[15px] font-medium hover:opacity-90 transition-opacity gap-2">
+                <i data-lucide="download" class="w-5 h-5"></i>
+                Descargar v1.2.10
+            </a>
+            
+        </div>
+    </header>
+
+    <section id="novedades" class="bg-cream-paper py-[100px] md:py-[120px] px-6 w-full">
+        <div class="max-w-[1200px] mx-auto">
+            
+            <div class="mb-12 text-center md:text-left flex flex-col md:flex-row md:items-end justify-between gap-6">
+                <div>
+                    <span class="text-[13px] font-bold text-canopy uppercase tracking-eyebrow block mb-4">
+                        Registro de cambios
+                    </span>
+                    <h2 class="text-[36px] font-light text-ink leading-[1.15] tracking-heading">
+                        Novedades de la versión
+                    </h2>
+                </div>
+            </div>
+
+            <!-- Features Grid (No shadows, hairline borders) -->
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                
+                <!-- Card 1 -->
+                <div class="bg-sheet-white border border-sage-mist rounded-card p-[32px] md:p-[40px] flex flex-col h-full">
+                    <div class="w-12 h-12 flex items-center justify-center rounded-btn bg-cream-paper text-canopy mb-6">
+                        <i data-lucide="activity" class="w-6 h-6"></i>
+                    </div>
+                    <h3 class="text-[20px] font-medium text-bark leading-[1.29] mb-4">
+                        Observabilidad & Sincronización
+                    </h3>
+                    <ul class="text-[16px] text-slate leading-[1.5] flex-grow space-y-3 list-none p-0 m-0">
+                        <li class="flex items-start gap-3">
+                            <i data-lucide="check" class="w-5 h-5 text-mint-pulse shrink-0 mt-0.5"></i>
+                            <span>Captación automática de variable del ERP con DSN de Sentry.</span>
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <i data-lucide="check" class="w-5 h-5 text-mint-pulse shrink-0 mt-0.5"></i>
+                            <span>Gestión de sesiones optimizada con el ERP.</span>
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- Card 2 -->
+                <div class="bg-sheet-white border border-sage-mist rounded-card p-[32px] md:p-[40px] flex flex-col h-full">
+                    <div class="w-12 h-12 flex items-center justify-center rounded-btn bg-cream-paper text-canopy mb-6">
+                        <i data-lucide="shield-check" class="w-6 h-6"></i>
+                    </div>
+                    <h3 class="text-[20px] font-medium text-bark leading-[1.29] mb-4">
+                        Bugfixes & Validación
+                    </h3>
+                    <ul class="text-[16px] text-slate leading-[1.5] flex-grow space-y-3 list-none p-0 m-0">
+                        <li class="flex items-start gap-3">
+                            <i data-lucide="check" class="w-5 h-5 text-mint-pulse shrink-0 mt-0.5"></i>
+                            <span>Corrección de error TypeError en geometrías tras split.</span>
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <i data-lucide="check" class="w-5 h-5 text-mint-pulse shrink-0 mt-0.5"></i>
+                            <span>Corrige nodos colgantes y violación de unicidad.</span>
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <i data-lucide="check" class="w-5 h-5 text-mint-pulse shrink-0 mt-0.5"></i>
+                            <span>Refactorización en la detección de herramientas.</span>
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- Card 3 -->
+                <div class="bg-sheet-white border border-sage-mist rounded-card p-[32px] md:p-[40px] flex flex-col h-full">
+                    <div class="w-12 h-12 flex items-center justify-center rounded-btn bg-cream-paper text-canopy mb-6">
+                        <i data-lucide="zap" class="w-6 h-6"></i>
+                    </div>
+                    <h3 class="text-[20px] font-medium text-bark leading-[1.29] mb-4">
+                        Rendimiento & UX
+                    </h3>
+                    <ul class="text-[16px] text-slate leading-[1.5] flex-grow space-y-3 list-none p-0 m-0">
+                        <li class="flex items-start gap-3">
+                            <i data-lucide="check" class="w-5 h-5 text-mint-pulse shrink-0 mt-0.5"></i>
+                            <span>Eliminación de llamadas redundantes a DB.</span>
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <i data-lucide="check" class="w-5 h-5 text-mint-pulse shrink-0 mt-0.5"></i>
+                            <span>Control mejorado de formularios abiertos.</span>
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <i data-lucide="check" class="w-5 h-5 text-mint-pulse shrink-0 mt-0.5"></i>
+                            <span>Actualización a Koo (v6.6.4) y Sentry-sdk (v2.57.0).</span>
+                        </li>
+                    </ul>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <section id="instalacion" class="bg-sheet-white border-t border-sage-mist py-[100px] md:py-[120px] px-6 w-full flex-grow">
+        <div class="max-w-[1200px] mx-auto">
+            
+            <div class="mb-12 text-center">
+                <span class="text-[13px] font-bold text-canopy uppercase tracking-eyebrow block mb-4">
+                    Instalación y descargas
+                </span>
+                <h2 class="text-[36px] font-light text-ink leading-[1.15] tracking-heading">
+                    Elige tu plataforma
+                </h2>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                
+                <!-- Windows Card -->
+                <div class="bg-cream-paper border border-sage-mist rounded-card p-[32px] md:p-[48px]">
+                    <div class="flex items-center gap-4 mb-8">
+                        <div class="w-16 h-16 bg-sheet-white border border-sage-mist rounded-card flex items-center justify-center text-canopy">
+                            <i data-lucide="monitor" class="w-8 h-8"></i>
+                        </div>
+                        <h3 class="text-[24px] font-light text-bark leading-[1.2] tracking-heading-sm">
+                            Microsoft Windows
+                        </h3>
+                    </div>
+
+                    <div class="space-y-6">
+                        <div class="bg-sheet-white border border-sage-mist rounded-btn p-4 flex items-center justify-between flex-wrap gap-4">
+                            <div>
+                                <h4 class="text-[16px] font-medium text-bark">QGisce Plugin v1.2.10</h4>
+                                <p class="text-[13px] text-slate">Ejecutable (.exe)</p>
+                            </div>
+                            <a href="#" class="inline-flex items-center justify-center bg-canopy text-white px-[24px] py-[12px] rounded-btn text-[14px] font-medium hover:bg-bark transition-colors gap-2">
+                                <i data-lucide="download" class="w-4 h-4"></i>
+                                Descargar
+                            </a>
+                        </div>
+                        
+                        <div class="bg-sheet-white border border-sage-mist rounded-btn p-4 flex items-center justify-between flex-wrap gap-4">
+                            <div>
+                                <h4 class="text-[16px] font-medium text-bark">QGIS v3.44.13</h4>
+                                <p class="text-[13px] text-slate">Instalador Oficial (.msi)</p>
+                            </div>
+                            <a href="#" class="inline-flex items-center justify-center border border-canopy text-canopy px-[24px] py-[12px] rounded-btn text-[14px] font-medium hover:bg-canopy hover:text-white transition-colors gap-2 bg-transparent">
+                                <i data-lucide="external-link" class="w-4 h-4"></i>
+                                Bajar de QGIS
+                            </a>
+                        </div>
+
+                        <div class="pt-6 border-t border-pale-sage">
+                            <h4 class="text-[13px] font-bold text-bark uppercase tracking-eyebrow mb-4">Guía Rápida</h4>
+                            <ol class="text-[15px] text-slate space-y-3 list-decimal list-inside m-0 p-0">
+                                <li><strong>Limpieza:</strong> Desinstala versiones previas del plugin.</li>
+                                <li><strong>Despliegue:</strong> Ejecuta el archivo <code>.exe</code> descargado.</li>
+                                <li><strong>Activación:</strong> Reinicia QGIS y verifica QGisce en <em>Complementos</em>.</li>
+                            </ol>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Ubuntu / Linux Card -->
+                <div class="bg-cream-paper border border-sage-mist rounded-card p-[32px] md:p-[48px]">
+                    <div class="flex items-center gap-4 mb-8">
+                        <div class="w-16 h-16 bg-sheet-white border border-sage-mist rounded-card flex items-center justify-center text-canopy">
+                            <i data-lucide="terminal" class="w-8 h-8"></i>
+                        </div>
+                        <h3 class="text-[24px] font-light text-bark leading-[1.2] tracking-heading-sm">
+                            Ubuntu / Linux
+                        </h3>
+                    </div>
+
+                    <div class="space-y-6">
+                        <div class="bg-sheet-white border border-sage-mist rounded-btn p-4 flex items-center justify-between flex-wrap gap-4">
+                            <div>
+                                <h4 class="text-[16px] font-medium text-bark">QGisce Plugin v1.2.10</h4>
+                                <p class="text-[13px] text-slate">Paquete ZIP (.zip)</p>
+                            </div>
+                            <a href="#" class="inline-flex items-center justify-center bg-canopy text-white px-[24px] py-[12px] rounded-btn text-[14px] font-medium hover:bg-bark transition-colors gap-2">
+                                <i data-lucide="download" class="w-4 h-4"></i>
+                                Descargar
+                            </a>
+                        </div>
+
+                        <div class="pt-6 border-t border-pale-sage">
+                            <h4 class="text-[13px] font-bold text-bark uppercase tracking-eyebrow mb-4">Instalación vía Terminal</h4>
+                            <p class="text-[15px] text-slate mb-3">Para instalar QGIS y las dependencias, ejecuta:</p>
+                            
+                            <div class="bg-sheet-white border border-sage-mist rounded-input p-4 overflow-x-auto code-scroll">
+                                <code class="text-[14px] text-bark whitespace-nowrap font-mono">
+                                    sudo apt update && sudo apt install qgis qgis-plugin-grass -y
+                                </code>
+                            </div>
+                            
+                            <p class="text-[15px] text-slate mt-4">
+                                Luego, en QGIS, ve a <strong>Complementos > Administrar e instalar > Instalar a partir de un archivo ZIP</strong> y selecciona el archivo descargado.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <footer id="soporte" class="bg-canopy text-white py-[80px] lg:py-[120px] px-6">
+        <div class="max-w-[1200px] mx-auto flex flex-col md:flex-row justify-between items-start gap-12">
+            
+            <div class="max-w-sm">
+                <div class="flex items-center gap-2 mb-6 text-white">
+                    <i data-lucide="map" class="w-6 h-6"></i>
+                    <span class="text-[20px] font-medium tracking-tight">QGisce</span>
+                </div>
+                <p class="text-[16px] font-normal leading-[1.5] text-pale-sage mb-6">
+                    Herramienta de integración oficial entre el entorno geográfico QGIS y el ERP GISCE.
+                </p>
+                <p class="text-[14px] text-pale-sage">
+                    © 2026 GISCE-TI, S.L. Todos los derechos reservados.
+                </p>
+            </div>
+
+            <div>
+                <span class="text-[13px] font-bold text-mint-pulse uppercase tracking-eyebrow block mb-6">
+                    Soporte Técnico
+                </span>
+                <p class="text-[16px] font-normal leading-[1.5] text-pale-sage mb-4 max-w-md">
+                    ¿Necesita soporte o ha encontrado algún error en el sistema?
+                </p>
+                <div class="bg-[#1a5345] border border-[#236b59] rounded-card p-6 inline-flex flex-col gap-2">
+                    <span class="text-[14px] font-medium">Abra un SAC enviando un correo a:</span>
+                    <a href="mailto:sac@gisce.net" class="text-[20px] font-light text-mint-pulse hover:underline">sac@gisce.net</a>
+                    <span class="text-[13px] text-pale-sage mt-2 block">
+                        * Por favor, adjunte capturas de pantalla o el registro de errores de QGIS.
+                    </span>
+                </div>
+            </div>
+
+        </div>
+    </footer>
+
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script>
+        lucide.createIcons();
+    </script>
+</body>
+</html>
