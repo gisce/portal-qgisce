@@ -1,0 +1,422 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portal de Descargas QGisce</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,700&display=swap" rel="stylesheet">
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        canopy: '#104336',
+                        'mint-pulse': '#0cd370',
+                        'mint-pulse-light': '#0eed7d',
+                        'orb-violet': '#7c18d3',
+                        'cream-paper': '#f3f1ec',
+                        'sheet-white': '#ffffff',
+                        bark: '#101f1e',
+                        ink: '#000000',
+                        slate: '#535e5d',
+                        'sage-mist': '#afc4bf',
+                        'pale-sage': '#c2cec8',
+                    },
+                    fontFamily: {
+                        sans: ['"DM Sans"', 'sans-serif'],
+                    },
+                    letterSpacing: {
+                        eyebrow: '0.07em',
+                        heading: '-0.02em',
+                    },
+                    borderRadius: {
+                        'input': '4px',
+                        'btn': '8px',
+                        'card': '16px',
+                        'pill': '9999px'
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        /* Arcadia Base Settings */
+        body {
+            background-color: #f3f1ec; /* Cream Paper */
+            color: #101f1e; /* Bark */
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        /* Hero Gradient Wash */
+        .hero-wash {
+            background: linear-gradient(222deg, #9ecbc0 14.83%, #fdfdfd 52.99%, #e9e9e9 79.47%);
+        }
+
+        /* Custom Scrollbar for code blocks */
+        .code-scroll::-webkit-scrollbar {
+            height: 6px;
+        }
+        .code-scroll::-webkit-scrollbar-track {
+            background: #f3f1ec; 
+            border-radius: 4px;
+        }
+        .code-scroll::-webkit-scrollbar-thumb {
+            background: #afc4bf; 
+            border-radius: 4px;
+        }
+    </style>
+</head>
+<body class="font-sans antialiased text-bark bg-cream-paper min-h-screen flex flex-col">
+
+    <div class="bg-canopy text-white py-[10px] px-4 text-center w-full">
+        <p class="text-[13px] md:text-[14px] font-normal leading-tight">
+            <span data-i18n="latestVersion">Última versión disponible:</span> <strong>v1.2.10</strong> <span class="mx-2 opacity-60">|</span> <span data-i18n="compatibleWith">Compatible con QGis v3.44.7</span>
+        </p>
+    </div>
+
+    <nav class="sticky top-0 z-50 bg-sheet-white h-[72px] flex items-center border-b border-sage-mist px-6 lg:px-12 w-full">
+        <div class="max-w-[1200px] mx-auto w-full flex justify-between items-center">
+            <!-- Brand -->
+            <div class="flex items-center gap-2">
+                <i data-lucide="map" class="text-canopy w-6 h-6"></i>
+                <span class="text-canopy text-[20px] font-medium tracking-tight">QGisce</span>
+            </div>
+            
+            <!-- Desktop Nav Links -->
+            <div class="hidden md:flex items-center gap-8">
+                <a href="#novedades" class="text-[14px] text-bark hover:text-canopy transition-colors font-normal" data-i18n="navNews">Novedades</a>
+                <a href="#instalacion" class="text-[14px] text-bark hover:text-canopy transition-colors font-normal" data-i18n="navInstall">Instalación</a>
+                <a href="#soporte" class="text-[14px] text-bark hover:text-canopy transition-colors font-normal" data-i18n="navContact">Contacto</a>
+            </div>
+
+            <!-- CTA -->
+            <div class="flex items-center gap-3">
+                <label for="language-selector" class="sr-only" data-i18n="languageLabel">Idioma</label>
+                <select id="language-selector" class="border border-sage-mist rounded-btn bg-white px-3 py-[14px] text-[14px] text-bark" aria-label="Idioma">
+                    <option value="ca">Català</option>
+                    <option value="es">Español</option>
+                </select>
+                <a href="#soporte" class="hidden sm:inline-flex items-center justify-center px-[24px] py-[15px] border border-canopy text-canopy rounded-btn text-[14px] font-medium hover:bg-canopy hover:text-white transition-colors bg-transparent" data-i18n="support">
+                    Soporte
+                </a>
+            </div>
+        </div>
+    </nav>
+
+<header class="relative w-full pt-[80px] pb-[100px] md:pt-[120px] md:pb-[140px] px-6 overflow-hidden">
+        
+        <!-- 1. Capa base: El degradado oficial Arcadia (Sage -> Lavender -> Cream) -->
+        <div class="absolute inset-0 hero-wash z-0"></div>
+
+        <!-- 2. Capa del Mapa OSM: En escala de grises, baja opacidad y fusionada con el degradado -->
+        <div class="absolute inset-0 z-0 opacity-20 mix-blend-multiply pointer-events-none filter grayscale contrast-125" 
+             style="background-image: url('./hero.png'); background-repeat: no-repeat; background-position: center; background-size: cover;">
+        </div>
+
+        <!-- 3. Contenedor del Contenido: Posicionado sobre el fondo (relative z-10) -->
+        <div class="relative z-10 max-w-[1200px] mx-auto text-center flex flex-col items-center">
+            
+            <span class="text-[13px] font-bold text-mint-pulse uppercase tracking-eyebrow mb-6">
+                <span data-i18n="updateAvailable">Actualización Disponible</span>
+            </span>
+            
+            <h1 class="text-[40px] md:text-[56px] font-light text-ink leading-[1.1] tracking-heading max-w-4xl mb-6">
+                <span data-i18n="heroTitle">Portal de Descargas QGisce</span>
+            </h1>
+            
+            <p class="text-[18px] text-slate font-normal leading-[1.5] max-w-2xl mb-10">
+                <span data-i18n="heroDescription">Repositorio oficial de versiones para la integración QGIS-GISCE. Accede a las herramientas, correcciones y mejoras de rendimiento más recientes.</span>
+            </p>
+            
+            <a href="#instalacion" class="inline-flex items-center justify-center bg-mint-pulse text-bark px-[24px] py-[16px] rounded-btn text-[15px] font-medium hover:brightness-105 transition-all gap-2">
+                <i data-lucide="download" class="w-5 h-5"></i>
+                <span data-i18n="downloadVersion">Descargar v1.2.10</span>
+            </a>
+            
+        </div>
+    </header>
+
+    <section id="novedades" class="bg-cream-paper py-[100px] md:py-[120px] px-6 w-full">
+        <div class="max-w-[1200px] mx-auto">
+            
+            <div class="mb-12 text-center md:text-left flex flex-col md:flex-row md:items-end justify-between gap-6">
+                <div>
+                    <span class="text-[13px] font-bold text-canopy uppercase tracking-eyebrow block mb-4">
+                        <span data-i18n="changelog">Registro de cambios</span>
+                    </span>
+                    <h2 class="text-[36px] font-light text-ink leading-[1.15] tracking-heading">
+                        <span data-i18n="versionNews">Novedades de la versión v1.2.10</span>
+                    </h2>
+                </div>
+            </div>
+
+            <!-- Features Grid (No shadows, hairline borders) -->
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                
+                <!-- Card 1 -->
+                <div class="bg-sheet-white border border-sage-mist rounded-card p-[32px] md:p-[40px] flex flex-col h-full">
+                    <div class="w-12 h-12 flex items-center justify-center rounded-btn bg-cream-paper text-canopy mb-6">
+                        <i data-lucide="activity" class="w-6 h-6"></i>
+                    </div>
+                    <h3 class="text-[20px] font-medium text-bark leading-[1.29] mb-4">
+                        <span data-i18n="observability">Observabilidad & Sincronización</span>
+                    </h3>
+                    <ul class="text-[16px] text-slate leading-[1.5] flex-grow space-y-3 list-none p-0 m-0">
+                        <li class="flex items-start gap-3">
+                            <i data-lucide="check" class="w-5 h-5 text-mint-pulse shrink-0 mt-0.5"></i>
+                            <span data-i18n="featureSentry">Captación automática de variable del ERP con DSN de Sentry.</span>
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <i data-lucide="check" class="w-5 h-5 text-mint-pulse shrink-0 mt-0.5"></i>
+                            <span data-i18n="featureSync">Los errores originales de sincronización se conservan para facilitar su diagnóstico.</span>
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- Card 2 -->
+                <div class="bg-sheet-white border border-sage-mist rounded-card p-[32px] md:p-[40px] flex flex-col h-full">
+                    <div class="w-12 h-12 flex items-center justify-center rounded-btn bg-cream-paper text-canopy mb-6">
+                        <i data-lucide="shield-check" class="w-6 h-6"></i>
+                    </div>
+                    <h3 class="text-[20px] font-medium text-bark leading-[1.29] mb-4">
+                        <span data-i18n="bugfixes">Bugfixes & Validación</span>
+                    </h3>
+                    <ul class="text-[16px] text-slate leading-[1.5] flex-grow space-y-3 list-none p-0 m-0">
+                        <li class="flex items-start gap-3">
+                            <i data-lucide="check" class="w-5 h-5 text-mint-pulse shrink-0 mt-0.5"></i>
+                            <span data-i18n="featureGeometry">Corrección de error TypeError en geometrías tras split.</span>
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <i data-lucide="check" class="w-5 h-5 text-mint-pulse shrink-0 mt-0.5"></i>
+                            <span data-i18n="featureNodes">Corrige nodos colgantes y violación de unicidad.</span>
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <i data-lucide="check" class="w-5 h-5 text-mint-pulse shrink-0 mt-0.5"></i>
+                            <span data-i18n="featureTools">Refactorización en la detección de herramientas.</span>
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- Card 3 -->
+                <div class="bg-sheet-white border border-sage-mist rounded-card p-[32px] md:p-[40px] flex flex-col h-full">
+                    <div class="w-12 h-12 flex items-center justify-center rounded-btn bg-cream-paper text-canopy mb-6">
+                        <i data-lucide="zap" class="w-6 h-6"></i>
+                    </div>
+                    <h3 class="text-[20px] font-medium text-bark leading-[1.29] mb-4">
+                        <span data-i18n="performance">Rendimiento & UX</span>
+                    </h3>
+                    <ul class="text-[16px] text-slate leading-[1.5] flex-grow space-y-3 list-none p-0 m-0">
+                        <li class="flex items-start gap-3">
+                            <i data-lucide="check" class="w-5 h-5 text-mint-pulse shrink-0 mt-0.5"></i>
+                            <span data-i18n="featureDatabase">Eliminación de llamadas redundantes a DB.</span>
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <i data-lucide="check" class="w-5 h-5 text-mint-pulse shrink-0 mt-0.5"></i>
+                            <span data-i18n="featureForms">Control mejorado de formularios abiertos.</span>
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <i data-lucide="check" class="w-5 h-5 text-mint-pulse shrink-0 mt-0.5"></i>
+                            <span data-i18n="featureDependencies">Actualización a Koo (v6.6.4) y Sentry-sdk (v2.57.0).</span>
+                        </li>
+                    </ul>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <section id="instalacion" class="bg-sheet-white border-t border-sage-mist py-[100px] md:py-[120px] px-6 w-full flex-grow">
+        <div class="max-w-[1200px] mx-auto">
+            
+            <div class="mb-12 text-center">
+                <span class="text-[13px] font-bold text-canopy uppercase tracking-eyebrow block mb-4">
+                    <span data-i18n="installDownloads">Instalación y descargas</span>
+                </span>
+                <h2 class="text-[36px] font-light text-ink leading-[1.15] tracking-heading">
+                    <span data-i18n="choosePlatform">Elige tu plataforma</span>
+                </h2>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                
+                <!-- Windows Card -->
+                <div class="bg-cream-paper border border-sage-mist rounded-card p-[32px] md:p-[48px]">
+                    <div class="flex items-center gap-4 mb-8">
+                        <div class="w-16 h-16 bg-sheet-white border border-sage-mist rounded-card flex items-center justify-center text-canopy">
+                            <i data-lucide="monitor" class="w-8 h-8"></i>
+                        </div>
+                        <h3 class="text-[24px] font-light text-bark leading-[1.2] tracking-heading-sm">
+                            Microsoft Windows
+                        </h3>
+                    </div>
+
+                    <div class="space-y-6">
+                        <div class="bg-sheet-white border border-sage-mist rounded-btn p-4 flex items-center justify-between flex-wrap gap-4">
+                            <div>
+                                <h4 class="text-[16px] font-medium text-bark">QGisce Plugin v1.2.10</h4>
+                                <p class="text-[13px] text-slate" data-i18n="executable">Ejecutable (.exe)</p>
+                            </div>
+                            <a href="./qgisce-installer-v1.2.10.exe" download="qgisce-installer-v1.2.10.exe" class="inline-flex items-center justify-center bg-canopy text-white px-[24px] py-[12px] rounded-btn text-[14px] font-medium hover:bg-bark transition-colors gap-2">
+                                <i data-lucide="download" class="w-4 h-4"></i>
+                                <span data-i18n="download">Descargar</span>
+                            </a>
+                        </div>
+                        
+                        <div class="bg-sheet-white border border-sage-mist rounded-btn p-4 flex items-center justify-between flex-wrap gap-4">
+                            <div>
+                                <h4 class="text-[16px] font-medium text-bark">QGIS v3.44.13</h4>
+                                <p class="text-[13px] text-slate" data-i18n="officialInstaller">Instalador Oficial (.msi)</p>
+                            </div>
+                            <a href="#" class="inline-flex items-center justify-center border border-canopy text-canopy px-[24px] py-[12px] rounded-btn text-[14px] font-medium hover:bg-canopy hover:text-white transition-colors gap-2 bg-transparent">
+                                <i data-lucide="external-link" class="w-4 h-4"></i>
+                                <span data-i18n="downloadQgis">Bajar de QGIS</span>
+                            </a>
+                        </div>
+
+                        <div class="pt-6 border-t border-pale-sage">
+                            <h4 class="text-[13px] font-bold text-bark uppercase tracking-eyebrow mb-4" data-i18n="quickGuide">Guía Rápida</h4>
+                            <ol class="text-[15px] text-slate space-y-3 list-decimal list-inside m-0 p-0">
+                                <li data-i18n-html="cleanStep"><strong>Limpieza:</strong> Desinstala versiones previas del plugin.</li>
+                                <li data-i18n-html="deployStep"><strong>Despliegue:</strong> Ejecuta el archivo <code>.exe</code> descargado.</li>
+                                <li data-i18n-html="activateStep"><strong>Activación:</strong> Reinicia QGIS y verifica QGisce en <em>Complementos</em>.</li>
+                            </ol>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Ubuntu / Linux Card -->
+                <div class="bg-cream-paper border border-sage-mist rounded-card p-[32px] md:p-[48px]">
+                    <div class="flex items-center gap-4 mb-8">
+                        <div class="w-16 h-16 bg-sheet-white border border-sage-mist rounded-card flex items-center justify-center text-canopy">
+                            <i data-lucide="terminal" class="w-8 h-8"></i>
+                        </div>
+                        <h3 class="text-[24px] font-light text-bark leading-[1.2] tracking-heading-sm">
+                            Ubuntu / Linux
+                        </h3>
+                    </div>
+
+                    <div class="space-y-6">
+                        <div class="bg-sheet-white border border-sage-mist rounded-btn p-4 flex items-center justify-between flex-wrap gap-4">
+                            <div>
+                                <h4 class="text-[16px] font-medium text-bark">QGisce Plugin v1.2.10</h4>
+                                <p class="text-[13px] text-slate" data-i18n="zipPackage">Paquete ZIP (.zip)</p>
+                            </div>
+                            <a href="./qgisce-v1.2.10.zip" download="qgisce-v1.2.10.zip" class="inline-flex items-center justify-center bg-canopy text-white px-[24px] py-[12px] rounded-btn text-[14px] font-medium hover:bg-bark transition-colors gap-2">
+                                <i data-lucide="download" class="w-4 h-4"></i>
+                                <span data-i18n="download">Descargar</span>
+                            </a>
+                        </div>
+
+                        <div class="pt-6 border-t border-pale-sage">
+                            <h4 class="text-[13px] font-bold text-bark uppercase tracking-eyebrow mb-4" data-i18n="terminalInstall">Instalación vía Terminal</h4>
+                            <p class="text-[15px] text-slate mb-3" data-i18n="terminalInstructions">Para instalar QGIS y las dependencias, ejecuta:</p>
+                            
+                            <div class="bg-sheet-white border border-sage-mist rounded-input p-4 overflow-x-auto code-scroll">
+                                <code class="text-[14px] text-bark whitespace-nowrap font-mono">
+                                    sudo apt update && sudo apt install qgis qgis-plugin-grass -y
+                                </code>
+                            </div>
+                            
+                            <p class="text-[15px] text-slate mt-4" data-i18n-html="qgisInstructions">
+                                Luego, en QGIS, ve a <strong>Complementos > Administrar e instalar > Instalar a partir de un archivo ZIP</strong> y selecciona el archivo descargado.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <footer id="soporte" class="bg-canopy text-white py-[80px] lg:py-[120px] px-6">
+        <div class="max-w-[1200px] mx-auto flex flex-col md:flex-row justify-between items-start gap-12">
+            
+            <div class="max-w-sm">
+                <div class="flex items-center gap-2 mb-6 text-white">
+                    <i data-lucide="map" class="w-6 h-6"></i>
+                    <span class="text-[20px] font-medium tracking-tight">QGisce</span>
+                </div>
+                <p class="text-[16px] font-normal leading-[1.5] text-pale-sage mb-6">
+                    <span data-i18n="footerDescription">Herramienta de integración oficial entre el entorno geográfico QGIS y el ERP GISCE.</span>
+                </p>
+                <p class="text-[14px] text-pale-sage">
+                    <span data-i18n="copyright">© 2026 GISCE-TI, S.L. Todos los derechos reservados.</span>
+                </p>
+            </div>
+
+            <div>
+                <span class="text-[13px] font-bold text-mint-pulse uppercase tracking-eyebrow block mb-6">
+                    <span data-i18n="technicalSupport">Soporte Técnico</span>
+                </span>
+                <p class="text-[16px] font-normal leading-[1.5] text-pale-sage mb-4 max-w-md">
+                    <span data-i18n="supportQuestion">¿Necesita soporte o ha encontrado algún error en el sistema?</span>
+                </p>
+                <div class="bg-[#1a5345] border border-[#236b59] rounded-card p-6 inline-flex flex-col gap-2">
+                    <span class="text-[14px] font-medium" data-i18n="openSac">Abra un SAC enviando un correo a:</span>
+                    <a href="mailto:sac@gisce.net" class="text-[20px] font-light text-mint-pulse hover:underline">sac@gisce.net</a>
+                    <span class="text-[13px] text-pale-sage mt-2 block">
+                        <span data-i18n="supportNote">* Por favor, adjunte capturas de pantalla o el registro de errores de QGIS.</span>
+                    </span>
+                </div>
+            </div>
+
+        </div>
+    </footer>
+
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script>
+        const translations = {
+            es: {
+                pageTitle: 'Portal de Descargas QGisce', latestVersion: 'Última versión disponible:', compatibleWith: 'Compatible con QGis v3.44.7',
+                navNews: 'Novedades', navInstall: 'Instalación', navContact: 'Contacto', languageLabel: 'Idioma', support: 'Soporte',
+                updateAvailable: 'Actualización Disponible', heroTitle: 'Portal de Descargas QGisce', heroDescription: 'Repositorio oficial de versiones para la integración QGIS-GISCE. Accede a las herramientas, correcciones y mejoras de rendimiento más recientes.', downloadVersion: 'Descargar v1.2.10',
+                changelog: 'Registro de cambios', versionNews: 'Novedades de la versión v1.2.10', observability: 'Observabilidad & Sincronización', featureSentry: 'Captación automática de variable del ERP con DSN de Sentry.', featureSync: 'Los errores originales de sincronización se conservan para facilitar su diagnóstico.',
+                bugfixes: 'Bugfixes & Validación', featureGeometry: 'Corrección de error TypeError en geometrías tras split.', featureNodes: 'Corrige nodos colgantes y violación de unicidad.', featureTools: 'Refactorización en la detección de herramientas.', performance: 'Rendimiento & UX', featureDatabase: 'Eliminación de llamadas redundantes a DB.', featureForms: 'Control mejorado de formularios abiertos.', featureDependencies: 'Actualización a Koo (v6.6.4) y Sentry-sdk (v2.57.0).',
+                installDownloads: 'Instalación y descargas', choosePlatform: 'Elige tu plataforma', executable: 'Ejecutable (.exe)', download: 'Descargar', officialInstaller: 'Instalador Oficial (.msi)', downloadQgis: 'Bajar de QGIS', quickGuide: 'Guía Rápida', cleanStep: '<strong>Limpieza:</strong> Desinstala versiones previas del plugin.', deployStep: '<strong>Despliegue:</strong> Ejecuta el archivo <code>.exe</code> descargado.', activateStep: '<strong>Activación:</strong> Reinicia QGIS y verifica QGisce en <em>Complementos</em>.',
+                zipPackage: 'Paquete ZIP (.zip)', terminalInstall: 'Instalación vía Terminal', terminalInstructions: 'Para instalar QGIS y las dependencias, ejecuta:', qgisInstructions: 'Luego, en QGIS, ve a <strong>Complementos &gt; Administrar e instalar &gt; Instalar a partir de un archivo ZIP</strong> y selecciona el archivo descargado.',
+                footerDescription: 'Herramienta de integración oficial entre el entorno geográfico QGIS y el ERP GISCE.', copyright: '© 2026 GISCE-TI, S.L. Todos los derechos reservados.', technicalSupport: 'Soporte Técnico', supportQuestion: '¿Necesita soporte o ha encontrado algún error en el sistema?', openSac: 'Abra un SAC enviando un correo a:', supportNote: '* Por favor, adjunte capturas de pantalla o el registro de errores de QGIS.'
+            },
+            ca: {
+                pageTitle: 'Portal de Descàrregues QGisce', latestVersion: 'Última versió disponible:', compatibleWith: 'Compatible amb QGis v3.44.7',
+                navNews: 'Novetats', navInstall: 'Instal·lació', navContact: 'Contacte', languageLabel: 'Idioma', support: 'Suport',
+                updateAvailable: 'Actualització disponible', heroTitle: 'Portal de Descàrregues QGisce', heroDescription: 'Repositori oficial de versions per a la integració QGIS-GISCE. Accedeix a les eines, correccions i millores de rendiment més recents.', downloadVersion: 'Descarrega la v1.2.10',
+                changelog: 'Registre de canvis', versionNews: 'Novetats de la versió v1.2.10', observability: 'Observabilitat i sincronització', featureSentry: 'Captació automàtica de la variable de l\'ERP amb el DSN de Sentry.', featureSync: 'Els errors originals de sincronització es conserven per facilitar-ne el diagnòstic.',
+                bugfixes: 'Correccions i validació', featureGeometry: 'Correcció de l\'error TypeError en geometries després d\'un split.', featureNodes: 'Corregeix nodes penjants i violacions d\'unicitat.', featureTools: 'Refactorització de la detecció d\'eines.', performance: 'Rendiment i UX', featureDatabase: 'Eliminació de crides redundants a la base de dades.', featureForms: 'Control millorat dels formularis oberts.', featureDependencies: 'Actualització a Koo (v6.6.4) i Sentry-sdk (v2.57.0).',
+                installDownloads: 'Instal·lació i descàrregues', choosePlatform: 'Tria la teva plataforma', executable: 'Executable (.exe)', download: 'Descarrega', officialInstaller: 'Instal·lador oficial (.msi)', downloadQgis: 'Descarrega de QGIS', quickGuide: 'Guia ràpida', cleanStep: '<strong>Neteja:</strong> Desinstal·la les versions anteriors del connector.', deployStep: '<strong>Desplegament:</strong> Executa el fitxer <code>.exe</code> descarregat.', activateStep: '<strong>Activació:</strong> Reinicia QGIS i verifica QGisce a <em>Complements</em>.',
+                zipPackage: 'Paquet ZIP (.zip)', terminalInstall: 'Instal·lació mitjançant el terminal', terminalInstructions: 'Per instal·lar QGIS i les dependències, executa:', qgisInstructions: 'Després, a QGIS, ves a <strong>Complements &gt; Administra i instal·la complements &gt; Instal·la des d\'un fitxer ZIP</strong> i selecciona el fitxer descarregat.',
+                footerDescription: 'Eina d\'integració oficial entre l\'entorn geogràfic QGIS i l\'ERP GISCE.', copyright: '© 2026 GISCE-TI, S.L. Tots els drets reservats.', technicalSupport: 'Suport tècnic', supportQuestion: 'Necessites suport o has trobat algun error al sistema?', openSac: 'Obre un SAC enviant un correu a:', supportNote: '* Si us plau, adjunta captures de pantalla o el registre d\'errors de QGIS.'
+            }
+        };
+
+        function setLanguage(language) {
+            const selectedLanguage = translations[language] ? language : 'es';
+            const messages = translations[selectedLanguage];
+            document.documentElement.lang = selectedLanguage;
+            document.title = messages.pageTitle;
+            document.querySelectorAll('[data-i18n]').forEach((element) => {
+                element.textContent = messages[element.dataset.i18n];
+            });
+            document.querySelectorAll('[data-i18n-html]').forEach((element) => {
+                element.innerHTML = messages[element.dataset.i18nHtml];
+            });
+            const selector = document.getElementById('language-selector');
+            selector.value = selectedLanguage;
+            selector.setAttribute('aria-label', messages.languageLabel);
+        }
+
+        const browserLanguage = (navigator.languages && navigator.languages[0]) || navigator.language || 'es';
+        const initialLanguage = browserLanguage.toLowerCase().split('-')[0] === 'ca' ? 'ca' : 'es';
+        const languageSelector = document.getElementById('language-selector');
+        languageSelector.addEventListener('change', (event) => setLanguage(event.target.value));
+        setLanguage(initialLanguage);
+        lucide.createIcons();
+    </script>
+</body>
+</html>

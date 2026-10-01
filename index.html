@@ -71,6 +71,28 @@
             background: #afc4bf; 
             border-radius: 4px;
         }
+
+        /* Tabs de plataforma */
+        .tab-btn.active {
+            background-color: #104336;
+            color: #ffffff;
+            border-color: #104336;
+        }
+        .tab-panel { display: none; }
+        .tab-panel.active { display: block; }
+
+        /* Acordeones */
+        details > summary {
+            list-style: none;
+            cursor: pointer;
+        }
+        details > summary::-webkit-details-marker { display: none; }
+        details > summary .chevron {
+            transition: transform 0.2s ease;
+        }
+        details[open] > summary .chevron {
+            transform: rotate(180deg);
+        }
     </style>
 </head>
 <body class="font-sans antialiased text-bark bg-cream-paper min-h-screen flex flex-col">
@@ -83,20 +105,17 @@
 
     <nav class="sticky top-0 z-50 bg-sheet-white h-[72px] flex items-center border-b border-sage-mist px-6 lg:px-12 w-full">
         <div class="max-w-[1200px] mx-auto w-full flex justify-between items-center">
-            <!-- Brand -->
             <div class="flex items-center gap-2">
                 <i data-lucide="map" class="text-canopy w-6 h-6"></i>
                 <span class="text-canopy text-[20px] font-medium tracking-tight">QGisce</span>
             </div>
             
-            <!-- Desktop Nav Links -->
             <div class="hidden md:flex items-center gap-8">
                 <a href="#novedades" class="text-[14px] text-bark hover:text-canopy transition-colors font-normal" data-i18n="navNews">Novedades</a>
                 <a href="#instalacion" class="text-[14px] text-bark hover:text-canopy transition-colors font-normal" data-i18n="navInstall">Instalación</a>
                 <a href="#soporte" class="text-[14px] text-bark hover:text-canopy transition-colors font-normal" data-i18n="navContact">Contacto</a>
             </div>
 
-            <!-- CTA -->
             <div class="flex items-center gap-3">
                 <label for="language-selector" class="sr-only" data-i18n="languageLabel">Idioma</label>
                 <select id="language-selector" class="border border-sage-mist rounded-btn bg-white px-3 py-[14px] text-[14px] text-bark" aria-label="Idioma">
@@ -110,36 +129,25 @@
         </div>
     </nav>
 
-<header class="relative w-full pt-[80px] pb-[100px] md:pt-[120px] md:pb-[140px] px-6 overflow-hidden">
-        
-        <!-- 1. Capa base: El degradado oficial Arcadia (Sage -> Lavender -> Cream) -->
+    <header class="relative w-full pt-[80px] pb-[100px] md:pt-[120px] md:pb-[140px] px-6 overflow-hidden">
         <div class="absolute inset-0 hero-wash z-0"></div>
-
-        <!-- 2. Capa del Mapa OSM: En escala de grises, baja opacidad y fusionada con el degradado -->
         <div class="absolute inset-0 z-0 opacity-20 mix-blend-multiply pointer-events-none filter grayscale contrast-125" 
              style="background-image: url('./hero.png'); background-repeat: no-repeat; background-position: center; background-size: cover;">
         </div>
-
-        <!-- 3. Contenedor del Contenido: Posicionado sobre el fondo (relative z-10) -->
         <div class="relative z-10 max-w-[1200px] mx-auto text-center flex flex-col items-center">
-            
             <span class="text-[13px] font-bold text-mint-pulse uppercase tracking-eyebrow mb-6">
                 <span data-i18n="updateAvailable">Actualización Disponible</span>
             </span>
-            
             <h1 class="text-[40px] md:text-[56px] font-light text-ink leading-[1.1] tracking-heading max-w-4xl mb-6">
                 <span data-i18n="heroTitle">Portal de Descargas QGisce</span>
             </h1>
-            
             <p class="text-[18px] text-slate font-normal leading-[1.5] max-w-2xl mb-10">
                 <span data-i18n="heroDescription">Repositorio oficial de versiones para la integración QGIS-GISCE. Accede a las herramientas, correcciones y mejoras de rendimiento más recientes.</span>
             </p>
-            
             <a href="#instalacion" class="inline-flex items-center justify-center bg-mint-pulse text-bark px-[24px] py-[16px] rounded-btn text-[15px] font-medium hover:brightness-105 transition-all gap-2">
                 <i data-lucide="download" class="w-5 h-5"></i>
                 <span data-i18n="downloadVersion">Descargar v1.2.10</span>
             </a>
-            
         </div>
     </header>
 
@@ -157,7 +165,37 @@
                 </div>
             </div>
 
-            <!-- Features Grid (No shadows, hairline borders) -->
+            <!-- Tabla de versiones -->
+            <div class="bg-sheet-white border border-sage-mist rounded-card overflow-hidden mb-12">
+                <div class="px-6 py-5 border-b border-sage-mist">
+                    <h3 class="text-[16px] font-medium text-bark" data-i18n="versionTableTitle">Últimas Versiones Disponibles</h3>
+                </div>
+                <div class="overflow-x-auto">
+                    <table class="w-full text-left">
+                        <thead class="bg-cream-paper">
+                            <tr>
+                                <th class="px-6 py-3 text-[13px] font-bold text-bark uppercase tracking-eyebrow" data-i18n="thVersion">Versión</th>
+                                <th class="px-6 py-3 text-[13px] font-bold text-bark uppercase tracking-eyebrow" data-i18n="thStatus">Estado</th>
+                                <th class="px-6 py-3 text-[13px] font-bold text-bark uppercase tracking-eyebrow" data-i18n="thCompatibility">Compatibilidad</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="border-t border-sage-mist">
+                                <td class="px-6 py-4 text-[15px] font-medium text-bark">v1.2.10</td>
+                                <td class="px-6 py-4">
+                                    <span class="inline-flex items-center gap-2 text-[14px] font-medium text-canopy">
+                                        <span class="w-2 h-2 rounded-full bg-mint-pulse"></span>
+                                        <span data-i18n="statusStable">Estable / Actual</span>
+                                    </span>
+                                </td>
+                                <td class="px-6 py-4 text-[15px] text-slate">QGis v3.44.7</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Features Grid -->
             <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
                 
                 <!-- Card 1 -->
@@ -175,7 +213,7 @@
                         </li>
                         <li class="flex items-start gap-3">
                             <i data-lucide="check" class="w-5 h-5 text-mint-pulse shrink-0 mt-0.5"></i>
-                            <span data-i18n="featureSync">Los errores originales de sincronización se conservan para facilitar su diagnóstico.</span>
+                            <span data-i18n="featureSession">Gestión de sesiones optimizada con el ERP.</span>
                         </li>
                     </ul>
                 </div>
@@ -201,6 +239,18 @@
                             <i data-lucide="check" class="w-5 h-5 text-mint-pulse shrink-0 mt-0.5"></i>
                             <span data-i18n="featureTools">Refactorización en la detección de herramientas.</span>
                         </li>
+                        <li class="flex items-start gap-3">
+                            <i data-lucide="check" class="w-5 h-5 text-mint-pulse shrink-0 mt-0.5"></i>
+                            <span data-i18n="featureLogging">Registro detallado de errores.</span>
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <i data-lucide="check" class="w-5 h-5 text-mint-pulse shrink-0 mt-0.5"></i>
+                            <span data-i18n="featureWarning">Supresión de RequestsDependencyWarning de urllib3/chardet al cargar.</span>
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <i data-lucide="check" class="w-5 h-5 text-mint-pulse shrink-0 mt-0.5"></i>
+                            <span data-i18n="featureWidgets">Se vuelven a visualizar los campos de formularios que pasaron a widgets nuevos (KOO 6.6.4).</span>
+                        </li>
                     </ul>
                 </div>
 
@@ -225,6 +275,10 @@
                             <i data-lucide="check" class="w-5 h-5 text-mint-pulse shrink-0 mt-0.5"></i>
                             <span data-i18n="featureDependencies">Actualización a Koo (v6.6.4) y Sentry-sdk (v2.57.0).</span>
                         </li>
+                        <li class="flex items-start gap-3">
+                            <i data-lucide="check" class="w-5 h-5 text-mint-pulse shrink-0 mt-0.5"></i>
+                            <span data-i18n="featureNextgis">Incluye NextGIS QuickMapServices (antiguo QuickMapServices).</span>
+                        </li>
                     </ul>
                 </div>
 
@@ -244,93 +298,343 @@
                 </h2>
             </div>
 
-            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
-                
-                <!-- Windows Card -->
-                <div class="bg-cream-paper border border-sage-mist rounded-card p-[32px] md:p-[48px]">
-                    <div class="flex items-center gap-4 mb-8">
-                        <div class="w-16 h-16 bg-sheet-white border border-sage-mist rounded-card flex items-center justify-center text-canopy">
-                            <i data-lucide="monitor" class="w-8 h-8"></i>
+            <!-- Tabs de plataforma -->
+            <div class="flex justify-center gap-3 mb-10">
+                <button data-tab="windows" class="tab-btn active inline-flex items-center gap-2 px-[24px] py-[14px] rounded-btn border border-sage-mist text-[14px] font-medium transition-colors text-bark bg-transparent hover:bg-cream-paper">
+                    <i data-lucide="monitor" class="w-4 h-4"></i>
+                    Microsoft Windows
+                </button>
+                <button data-tab="ubuntu" class="tab-btn inline-flex items-center gap-2 px-[24px] py-[14px] rounded-btn border border-sage-mist text-[14px] font-medium transition-colors text-bark bg-transparent hover:bg-cream-paper">
+                    <i data-lucide="terminal" class="w-4 h-4"></i>
+                    Ubuntu / Linux
+                </button>
+            </div>
+
+            <!-- Panel Windows -->
+            <div id="tab-windows" class="tab-panel active">
+                <div class="space-y-6">
+
+                    <!-- Paquetes principales Windows -->
+                    <div class="bg-cream-paper border border-sage-mist rounded-card p-[32px] md:p-[48px]">
+                        <h3 class="text-[20px] font-medium text-bark mb-6" data-i18n="mainPackages">Paquetes Principales</h3>
+                        <div class="overflow-x-auto">
+                            <table class="w-full text-left">
+                                <thead class="bg-sheet-white">
+                                    <tr>
+                                        <th class="px-4 py-3 text-[13px] font-bold text-bark uppercase tracking-eyebrow" data-i18n="thComponent">Componente</th>
+                                        <th class="px-4 py-3 text-[13px] font-bold text-bark uppercase tracking-eyebrow" data-i18n="thType">Tipo</th>
+                                        <th class="px-4 py-3 text-[13px] font-bold text-bark uppercase tracking-eyebrow" data-i18n="thLink">Enlace</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr class="border-t border-sage-mist bg-sheet-white">
+                                        <td class="px-4 py-4 text-[15px] font-medium text-bark">QGisce Plugin v1.2.10</td>
+                                        <td class="px-4 py-4 text-[15px] text-slate" data-i18n="executable">Ejecutable (.exe)</td>
+                                        <td class="px-4 py-4">
+                                            <a href="./qgisce-installer-v1.2.10.exe" download="qgisce-installer-v1.2.10.exe" class="inline-flex items-center gap-2 bg-canopy text-white px-[16px] py-[8px] rounded-btn text-[13px] font-medium hover:bg-bark transition-colors">
+                                                <i data-lucide="download" class="w-4 h-4"></i>
+                                                <span data-i18n="download">Descargar</span>
+                                            </a>
+                                        </td>
+                                    </tr>
+                                    <tr class="border-t border-sage-mist bg-sheet-white">
+                                        <td class="px-4 py-4 text-[15px] font-medium text-bark">QGIS v3.44.13</td>
+                                        <td class="px-4 py-4 text-[15px] text-slate" data-i18n="officialInstaller">Instalador Oficial (.msi)</td>
+                                        <td class="px-4 py-4">
+                                            <a href="https://download.qgis.org/downloads/QGIS-OSGeo4W-3.44.13-1.msi" target="_blank" rel="noopener" class="inline-flex items-center gap-2 border border-canopy text-canopy px-[16px] py-[8px] rounded-btn text-[13px] font-medium hover:bg-canopy hover:text-white transition-colors bg-transparent">
+                                                <i data-lucide="external-link" class="w-4 h-4"></i>
+                                                <span data-i18n="downloadQgis">Bajar de QGIS</span>
+                                            </a>
+                                        </td>
+                                    </tr>
+                                    <tr class="border-t border-sage-mist bg-sheet-white">
+                                        <td class="px-4 py-4 text-[15px] font-medium text-bark">QGIS v3.34.5</td>
+                                        <td class="px-4 py-4 text-[15px] text-slate" data-i18n="officialInstaller">Instalador Oficial (.msi)</td>
+                                        <td class="px-4 py-4">
+                                            <a href="https://www.qgis.org/downloads/windows/QGIS-OSGeo4W-3.34.5-1.msi" target="_blank" rel="noopener" class="inline-flex items-center gap-2 border border-canopy text-canopy px-[16px] py-[8px] rounded-btn text-[13px] font-medium hover:bg-canopy hover:text-white transition-colors bg-transparent">
+                                                <i data-lucide="external-link" class="w-4 h-4"></i>
+                                                <span data-i18n="downloadQgis">Bajar de QGIS</span>
+                                            </a>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
                         </div>
-                        <h3 class="text-[24px] font-light text-bark leading-[1.2] tracking-heading-sm">
-                            Microsoft Windows
-                        </h3>
                     </div>
 
-                    <div class="space-y-6">
-                        <div class="bg-sheet-white border border-sage-mist rounded-btn p-4 flex items-center justify-between flex-wrap gap-4">
-                            <div>
-                                <h4 class="text-[16px] font-medium text-bark">QGisce Plugin v1.2.10</h4>
-                                <p class="text-[13px] text-slate" data-i18n="executable">Ejecutable (.exe)</p>
+                    <!-- Acordeón: Guía QGIS Windows -->
+                    <details class="bg-cream-paper border border-sage-mist rounded-card overflow-hidden">
+                        <summary class="px-[32px] md:px-[48px] py-6 flex items-center justify-between gap-4">
+                            <div class="flex items-center gap-3">
+                                <div class="w-10 h-10 bg-sheet-white border border-sage-mist rounded-btn flex items-center justify-center text-canopy shrink-0">
+                                    <i data-lucide="book-open" class="w-5 h-5"></i>
+                                </div>
+                                <h3 class="text-[18px] font-medium text-bark" data-i18n="quickGuideQgis">Guía de instalación rápida de QGIS</h3>
                             </div>
-                            <a href="./qgisce-installer-v1.2.10.exe" download="qgisce-installer-v1.2.10.exe" class="inline-flex items-center justify-center bg-canopy text-white px-[24px] py-[12px] rounded-btn text-[14px] font-medium hover:bg-bark transition-colors gap-2">
-                                <i data-lucide="download" class="w-4 h-4"></i>
-                                <span data-i18n="download">Descargar</span>
-                            </a>
-                        </div>
-                        
-                        <div class="bg-sheet-white border border-sage-mist rounded-btn p-4 flex items-center justify-between flex-wrap gap-4">
-                            <div>
-                                <h4 class="text-[16px] font-medium text-bark">QGIS v3.44.13</h4>
-                                <p class="text-[13px] text-slate" data-i18n="officialInstaller">Instalador Oficial (.msi)</p>
-                            </div>
-                            <a href="#" class="inline-flex items-center justify-center border border-canopy text-canopy px-[24px] py-[12px] rounded-btn text-[14px] font-medium hover:bg-canopy hover:text-white transition-colors gap-2 bg-transparent">
-                                <i data-lucide="external-link" class="w-4 h-4"></i>
-                                <span data-i18n="downloadQgis">Bajar de QGIS</span>
-                            </a>
-                        </div>
-
-                        <div class="pt-6 border-t border-pale-sage">
-                            <h4 class="text-[13px] font-bold text-bark uppercase tracking-eyebrow mb-4" data-i18n="quickGuide">Guía Rápida</h4>
+                            <i data-lucide="chevron-down" class="chevron w-5 h-5 text-slate shrink-0"></i>
+                        </summary>
+                        <div class="px-[32px] md:px-[48px] pb-8 border-t border-sage-mist pt-6">
                             <ol class="text-[15px] text-slate space-y-3 list-decimal list-inside m-0 p-0">
-                                <li data-i18n-html="cleanStep"><strong>Limpieza:</strong> Desinstala versiones previas del plugin.</li>
-                                <li data-i18n-html="deployStep"><strong>Despliegue:</strong> Ejecuta el archivo <code>.exe</code> descargado.</li>
-                                <li data-i18n-html="activateStep"><strong>Activación:</strong> Reinicia QGIS y verifica QGisce en <em>Complementos</em>.</li>
+                                <li data-i18n-html="winQgisStep1"><strong>Ejecutar:</strong> Haz doble clic sobre el archivo instalador <code>.msi</code> que has descargado.</li>
+                                <li data-i18n-html="winQgisStep2"><strong>Aceptar términos:</strong> Haz clic en <strong>Next</strong>, marca la casilla para aceptar los términos de licencia y vuelve a pulsar <strong>Next</strong>.</li>
+                                <li data-i18n-html="winQgisStep3"><strong>Instalar:</strong> Pulsa el botón <strong>Install</strong>. <em>(Si Windows te pide permisos de administrador, haz clic en "Sí")</em>.</li>
+                                <li data-i18n-html="winQgisStep4"><strong>Finalizar:</strong> Espera a que se complete la barra de progreso y haz clic en <strong>Finish</strong>. ¡QGIS ya está listo para usarse!</li>
                             </ol>
                         </div>
-                    </div>
-                </div>
+                    </details>
 
-                <!-- Ubuntu / Linux Card -->
-                <div class="bg-cream-paper border border-sage-mist rounded-card p-[32px] md:p-[48px]">
-                    <div class="flex items-center gap-4 mb-8">
-                        <div class="w-16 h-16 bg-sheet-white border border-sage-mist rounded-card flex items-center justify-center text-canopy">
-                            <i data-lucide="terminal" class="w-8 h-8"></i>
+                    <!-- Acordeón: Guía Plugin Windows -->
+                    <details class="bg-cream-paper border border-sage-mist rounded-card overflow-hidden">
+                        <summary class="px-[32px] md:px-[48px] py-6 flex items-center justify-between gap-4">
+                            <div class="flex items-center gap-3">
+                                <div class="w-10 h-10 bg-sheet-white border border-sage-mist rounded-btn flex items-center justify-center text-canopy shrink-0">
+                                    <i data-lucide="puzzle" class="w-5 h-5"></i>
+                                </div>
+                                <h3 class="text-[18px] font-medium text-bark" data-i18n="pluginGuideWin">Guía de Instalación del QGisce Plugin</h3>
+                            </div>
+                            <i data-lucide="chevron-down" class="chevron w-5 h-5 text-slate shrink-0"></i>
+                        </summary>
+                        <div class="px-[32px] md:px-[48px] pb-8 border-t border-sage-mist pt-6">
+                            <ol class="text-[15px] text-slate space-y-3 list-decimal list-inside m-0 p-0">
+                                <li data-i18n-html="winPluginStep1"><strong>Limpieza previa</strong> <em>(en caso de tener una versión anterior)</em>: Desinstale el plugin actual desde el gestor. Elimine la carpeta <code>qgisce</code> en la ruta <code>%APPDATA%\QGIS\QGIS3\profiles\default\python\plugins\</code> si existe.</li>
+                                <li data-i18n-html="winPluginStep2"><strong>Despliegue:</strong> Ejecute el archivo <code>.exe</code> descargado y siga las instrucciones.</li>
+                                <li data-i18n-html="winPluginStep3"><strong>Activación:</strong> Reinicie QGIS. Diríjase a <strong>Complementos > Administrar e instalar complementos</strong> y verifique que QGisce esté marcado como activo.</li>
+                            </ol>
                         </div>
-                        <h3 class="text-[24px] font-light text-bark leading-[1.2] tracking-heading-sm">
-                            Ubuntu / Linux
-                        </h3>
+                    </details>
+
+                    <!-- Acordeón: Versiones anteriores Windows -->
+                    <details class="bg-cream-paper border border-sage-mist rounded-card overflow-hidden">
+                        <summary class="px-[32px] md:px-[48px] py-6 flex items-center justify-between gap-4">
+                            <div class="flex items-center gap-3">
+                                <div class="w-10 h-10 bg-sheet-white border border-sage-mist rounded-btn flex items-center justify-center text-canopy shrink-0">
+                                    <i data-lucide="archive" class="w-5 h-5"></i>
+                                </div>
+                                <h3 class="text-[18px] font-medium text-bark" data-i18n="previousVersions">Versiones Anteriores</h3>
+                            </div>
+                            <i data-lucide="chevron-down" class="chevron w-5 h-5 text-slate shrink-0"></i>
+                        </summary>
+                        <div class="px-[32px] md:px-[48px] pb-8 border-t border-sage-mist pt-6">
+                            <ul class="text-[15px] text-slate space-y-3 list-none p-0 m-0">
+                                <li class="flex items-center justify-between gap-4 flex-wrap">
+                                    <span class="font-medium text-bark">v1.2.3</span>
+                                    <a href="https://drive.google.com/file/d/1_cBERDrKeVbTGO4uZxku_DEtxGe-jyf8/view?usp=drive_link" target="_blank" rel="noopener" class="inline-flex items-center gap-2 text-canopy hover:opacity-80 font-medium text-[14px]">
+                                        <i data-lucide="download" class="w-4 h-4"></i> <span data-i18n="download">Descargar</span>
+                                    </a>
+                                </li>
+                                <li class="flex items-center justify-between gap-4 flex-wrap">
+                                    <span class="font-medium text-bark">v1.2.4</span>
+                                    <a href="https://drive.google.com/file/d/1dh9EYSxWyKF3qiTMHFQVG5w5wBkrvJ6v/view?usp=drive_link" target="_blank" rel="noopener" class="inline-flex items-center gap-2 text-canopy hover:opacity-80 font-medium text-[14px]">
+                                        <i data-lucide="download" class="w-4 h-4"></i> <span data-i18n="download">Descargar</span>
+                                    </a>
+                                </li>
+                                <li class="flex items-center justify-between gap-4 flex-wrap">
+                                    <span class="font-medium text-bark">v1.2.5</span>
+                                    <a href="https://drive.google.com/file/d/1wSk65lH0rZ160OSyB3QfgLTUWEAn8wXr/view?usp=drive_link" target="_blank" rel="noopener" class="inline-flex items-center gap-2 text-canopy hover:opacity-80 font-medium text-[14px]">
+                                        <i data-lucide="download" class="w-4 h-4"></i> <span data-i18n="download">Descargar</span>
+                                    </a>
+                                </li>
+                                <li class="flex items-center justify-between gap-4 flex-wrap">
+                                    <span class="font-medium text-bark">v1.2.7</span>
+                                    <a href="https://drive.google.com/file/d/19PB8cZ_4lcW35xRzgaEx4SMYOVF-CCqi/view?usp=drive_link" target="_blank" rel="noopener" class="inline-flex items-center gap-2 text-canopy hover:opacity-80 font-medium text-[14px]">
+                                        <i data-lucide="download" class="w-4 h-4"></i> <span data-i18n="download">Descargar</span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </details>
+
+                </div>
+            </div>
+
+            <!-- Panel Ubuntu -->
+            <div id="tab-ubuntu" class="tab-panel">
+                <div class="space-y-6">
+
+                    <!-- Paquetes principales Ubuntu -->
+                    <div class="bg-cream-paper border border-sage-mist rounded-card p-[32px] md:p-[48px]">
+                        <h3 class="text-[20px] font-medium text-bark mb-6" data-i18n="mainPackages">Paquetes Principales</h3>
+                        <div class="overflow-x-auto">
+                            <table class="w-full text-left">
+                                <thead class="bg-sheet-white">
+                                    <tr>
+                                        <th class="px-4 py-3 text-[13px] font-bold text-bark uppercase tracking-eyebrow" data-i18n="thComponent">Componente</th>
+                                        <th class="px-4 py-3 text-[13px] font-bold text-bark uppercase tracking-eyebrow" data-i18n="thType">Tipo</th>
+                                        <th class="px-4 py-3 text-[13px] font-bold text-bark uppercase tracking-eyebrow" data-i18n="thLink">Enlace</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr class="border-t border-sage-mist bg-sheet-white">
+                                        <td class="px-4 py-4 text-[15px] font-medium text-bark">QGisce Plugin v1.2.10</td>
+                                        <td class="px-4 py-4 text-[15px] text-slate" data-i18n="zipPackage">Paquete ZIP (.zip)</td>
+                                        <td class="px-4 py-4">
+                                            <a href="./qgisce-v1.2.10.zip" download="qgisce-v1.2.10.zip" class="inline-flex items-center gap-2 bg-canopy text-white px-[16px] py-[8px] rounded-btn text-[13px] font-medium hover:bg-bark transition-colors">
+                                                <i data-lucide="download" class="w-4 h-4"></i>
+                                                <span data-i18n="download">Descargar</span>
+                                            </a>
+                                        </td>
+                                    </tr>
+                                    <tr class="border-t border-sage-mist bg-sheet-white">
+                                        <td class="px-4 py-4 text-[15px] font-medium text-bark">QGIS v3.44</td>
+                                        <td class="px-4 py-4 text-[15px] text-slate" data-i18n="installGuide">Guía de instalación</td>
+                                        <td class="px-4 py-4">
+                                            <span class="text-[14px] text-slate" data-i18n="seeBelow">Ver siguiente punto</span>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
 
-                    <div class="space-y-6">
-                        <div class="bg-sheet-white border border-sage-mist rounded-btn p-4 flex items-center justify-between flex-wrap gap-4">
+                    <!-- Acordeón: Guía QGIS Ubuntu -->
+                    <details class="bg-cream-paper border border-sage-mist rounded-card overflow-hidden">
+                        <summary class="px-[32px] md:px-[48px] py-6 flex items-center justify-between gap-4">
+                            <div class="flex items-center gap-3">
+                                <div class="w-10 h-10 bg-sheet-white border border-sage-mist rounded-btn flex items-center justify-center text-canopy shrink-0">
+                                    <i data-lucide="book-open" class="w-5 h-5"></i>
+                                </div>
+                                <h3 class="text-[18px] font-medium text-bark" data-i18n="quickGuideQgis">Guía de instalación rápida de QGIS</h3>
+                            </div>
+                            <i data-lucide="chevron-down" class="chevron w-5 h-5 text-slate shrink-0"></i>
+                        </summary>
+                        <div class="px-[32px] md:px-[48px] pb-8 border-t border-sage-mist pt-6 space-y-6">
+                            <p class="text-[15px] text-slate" data-i18n="ubuntuIntro">Sigue estos sencillos pasos para instalar la última versión de QGIS. Solo tendrás que copiar los comandos que están en los recuadros y pegarlos en tu sistema.</p>
+
                             <div>
-                                <h4 class="text-[16px] font-medium text-bark">QGisce Plugin v1.2.10</h4>
-                                <p class="text-[13px] text-slate" data-i18n="zipPackage">Paquete ZIP (.zip)</p>
+                                <p class="text-[15px] text-slate mb-3" data-i18n-html="ubuntuStep1"><strong>Paso 1: Abrir la terminal</strong> — Presiona las teclas <code>Ctrl</code> + <code>Alt</code> + <code>T</code> al mismo tiempo en tu teclado. Se abrirá una ventana negra.</p>
                             </div>
-                            <a href="./qgisce-v1.2.10.zip" download="qgisce-v1.2.10.zip" class="inline-flex items-center justify-center bg-canopy text-white px-[24px] py-[12px] rounded-btn text-[14px] font-medium hover:bg-bark transition-colors gap-2">
-                                <i data-lucide="download" class="w-4 h-4"></i>
-                                <span data-i18n="download">Descargar</span>
-                            </a>
-                        </div>
 
-                        <div class="pt-6 border-t border-pale-sage">
-                            <h4 class="text-[13px] font-bold text-bark uppercase tracking-eyebrow mb-4" data-i18n="terminalInstall">Instalación vía Terminal</h4>
-                            <p class="text-[15px] text-slate mb-3" data-i18n="terminalInstructions">Para instalar QGIS y las dependencias, ejecuta:</p>
-                            
-                            <div class="bg-sheet-white border border-sage-mist rounded-input p-4 overflow-x-auto code-scroll">
-                                <code class="text-[14px] text-bark whitespace-nowrap font-mono">
-                                    sudo apt update && sudo apt install qgis qgis-plugin-grass -y
-                                </code>
+                            <div>
+                                <p class="text-[15px] text-slate mb-3" data-i18n-html="ubuntuStep2"><strong>Paso 2: Instalar herramientas necesarias</strong> — Copia el siguiente texto, pégalo en la terminal y presiona <strong>Enter</strong>. <em>(Es posible que te pida tu contraseña de usuario; al escribirla no se verán asteriscos, es normal. Escríbela y presiona Enter)</em>.</p>
+                                <div class="bg-sheet-white border border-sage-mist rounded-input p-4 overflow-x-auto code-scroll">
+                                    <code class="text-[14px] text-bark whitespace-nowrap font-mono">sudo apt update && sudo apt install gnupg software-properties-common wget -y</code>
+                                </div>
                             </div>
-                            
-                            <p class="text-[15px] text-slate mt-4" data-i18n-html="qgisInstructions">
-                                Luego, en QGIS, ve a <strong>Complementos > Administrar e instalar > Instalar a partir de un archivo ZIP</strong> y selecciona el archivo descargado.
-                            </p>
+
+                            <div>
+                                <p class="text-[15px] text-slate mb-3" data-i18n-html="ubuntuStep3"><strong>Paso 3: Añadir la clave de seguridad de QGIS</strong> — Copia y pega estas dos líneas, una por una, presionando <strong>Enter</strong> después de cada una:</p>
+                                <div class="bg-sheet-white border border-sage-mist rounded-input p-4 overflow-x-auto code-scroll mb-3">
+                                    <code class="text-[14px] text-bark whitespace-nowrap font-mono">sudo mkdir -m755 -p /etc/apt/keyrings</code>
+                                </div>
+                                <div class="bg-sheet-white border border-sage-mist rounded-input p-4 overflow-x-auto code-scroll">
+                                    <code class="text-[14px] text-bark whitespace-nowrap font-mono">sudo wget -O /etc/apt/keyrings/qgis-archive-keyring.gpg https://download.qgis.org/downloads/qgis-archive-keyring.gpg</code>
+                                </div>
+                            </div>
+
+                            <div>
+                                <p class="text-[15px] text-slate mb-3" data-i18n-html="ubuntuStep4"><strong>Paso 4: Conectar con el servidor oficial</strong> — Copia <strong>todo este bloque</strong> de texto de una sola vez, pégalo en la terminal y presiona <strong>Enter</strong>. Esto configurará tu equipo automáticamente:</p>
+                                <div class="bg-sheet-white border border-sage-mist rounded-input p-4 overflow-x-auto code-scroll">
+                                    <code class="text-[14px] text-bark font-mono whitespace-pre block">cat &lt;&lt;EOF | sudo tee /etc/apt/sources.list.d/qgis.sources
+Types: deb deb-src
+URIs: https://qgis.org/ubuntu
+Suites: $(lsb_release -cs)
+Architectures: amd64
+Components: main
+Signed-By: /etc/apt/keyrings/qgis-archive-keyring.gpg
+EOF</code>
+                                </div>
+                            </div>
+
+                            <div>
+                                <p class="text-[15px] text-slate mb-3" data-i18n-html="ubuntuStep5"><strong>Paso 5: Instalar el programa</strong> — Por último, dile a tu equipo que descargue e instale QGIS copiando y pegando este comando:</p>
+                                <div class="bg-sheet-white border border-sage-mist rounded-input p-4 overflow-x-auto code-scroll mb-3">
+                                    <code class="text-[14px] text-bark whitespace-nowrap font-mono">sudo apt update && sudo apt install qgis qgis-plugin-grass -y</code>
+                                </div>
+                                <p class="text-[15px] text-slate" data-i18n="ubuntuStep5Note">¡Listo! Dependiendo de tu conexión a internet, este último paso puede tardar un par de minutos. Cuando termine y vuelva a aparecer tu nombre de usuario en la terminal, ya podrás cerrar la ventana, buscar QGIS en tu menú de aplicaciones y abrirlo.</p>
+                            </div>
                         </div>
-                    </div>
+                    </details>
+
+                    <!-- Acordeón: Guía Plugin Ubuntu -->
+                    <details class="bg-cream-paper border border-sage-mist rounded-card overflow-hidden">
+                        <summary class="px-[32px] md:px-[48px] py-6 flex items-center justify-between gap-4">
+                            <div class="flex items-center gap-3">
+                                <div class="w-10 h-10 bg-sheet-white border border-sage-mist rounded-btn flex items-center justify-center text-canopy shrink-0">
+                                    <i data-lucide="puzzle" class="w-5 h-5"></i>
+                                </div>
+                                <h3 class="text-[18px] font-medium text-bark" data-i18n="pluginGuideUbuntu">Guía de Instalación del QGisce Plugin vía (.zip)</h3>
+                            </div>
+                            <i data-lucide="chevron-down" class="chevron w-5 h-5 text-slate shrink-0"></i>
+                        </summary>
+                        <div class="px-[32px] md:px-[48px] pb-8 border-t border-sage-mist pt-6 space-y-6">
+                            <div>
+                                <h4 class="text-[15px] font-medium text-bark mb-3" data-i18n="ubuntuPluginStep1">Paso 1: Preparar el archivo</h4>
+                                <ol class="text-[15px] text-slate space-y-2 list-decimal list-inside m-0 p-0">
+                                    <li data-i18n-html="ubuntuPluginStep1a">Asegúrate de tener el archivo descargado en tu ordenador (por ejemplo, <code>qgisce_plugin_v1.2.2.zip</code>).</li>
+                                    <li data-i18n-html="ubuntuPluginStep1b"><strong>No extraigas</strong> el contenido del archivo ZIP. QGIS se encargará de instalarlo directamente desde el paquete comprimido.</li>
+                                </ol>
+                            </div>
+                            <div>
+                                <h4 class="text-[15px] font-medium text-bark mb-3" data-i18n="ubuntuPluginStep2">Paso 2: Acceder al Gestor de Complementos</h4>
+                                <ol class="text-[15px] text-slate space-y-2 list-decimal list-inside m-0 p-0">
+                                    <li data-i18n-html="ubuntuPluginStep2a">Abre <strong>QGIS</strong> en tu sistema.</li>
+                                    <li data-i18n-html="ubuntuPluginStep2b">En la barra de menú superior, haz clic en <strong>Complementos</strong> (Plugins).</li>
+                                    <li data-i18n-html="ubuntuPluginStep2c">Selecciona la opción <strong>Administrar e instalar complementos...</strong> (Manage and Install Plugins...). <em>(Esto abrirá una nueva ventana con el repositorio de QGIS)</em>.</li>
+                                </ol>
+                            </div>
+                            <div>
+                                <h4 class="text-[15px] font-medium text-bark mb-3" data-i18n="ubuntuPluginStep3">Paso 3: Instalar desde ZIP</h4>
+                                <ol class="text-[15px] text-slate space-y-2 list-decimal list-inside m-0 p-0">
+                                    <li data-i18n-html="ubuntuPluginStep3a">En la ventana del Gestor de Complementos, fíjate en el menú lateral izquierdo y selecciona la pestaña <strong>Instalar a partir de un archivo ZIP</strong> (Install from ZIP).</li>
+                                    <li data-i18n-html="ubuntuPluginStep3b">Haz clic en el botón de los tres puntos <code>[...]</code> junto al campo "Archivo ZIP".</li>
+                                    <li data-i18n-html="ubuntuPluginStep3c">Navega por las carpetas de tu ordenador y <strong>selecciona el archivo <code>.zip</code></strong> que descargaste en el Paso 1.</li>
+                                    <li data-i18n-html="ubuntuPluginStep3d">(Opcional) Si estás actualizando una versión anterior, asegúrate de marcar la casilla <strong>"Reemplazar si ya existe una versión más antigua"</strong>.</li>
+                                    <li data-i18n-html="ubuntuPluginStep3e">Finalmente, haz clic en el botón <strong>Instalar complemento</strong> (Install plugin).</li>
+                                </ol>
+                            </div>
+                            <div>
+                                <h4 class="text-[15px] font-medium text-bark mb-3" data-i18n="ubuntuPluginStep4">Paso 4: Verificación</h4>
+                                <ol class="text-[15px] text-slate space-y-2 list-decimal list-inside m-0 p-0">
+                                    <li data-i18n="ubuntuPluginStep4a">Una vez que la barra de progreso termine, deberías ver un mensaje de éxito en la parte superior de la ventana.</li>
+                                    <li data-i18n="ubuntuPluginStep4b">Cierra la ventana del gestor.</li>
+                                    <li data-i18n="ubuntuPluginStep4c">El plugin QGisce ya está instalado y debería estar visible en tu interfaz (revisa las barras de herramientas o el menú superior).</li>
+                                </ol>
+                            </div>
+                        </div>
+                    </details>
+
+                    <!-- Acordeón: Versiones anteriores Ubuntu -->
+                    <details class="bg-cream-paper border border-sage-mist rounded-card overflow-hidden">
+                        <summary class="px-[32px] md:px-[48px] py-6 flex items-center justify-between gap-4">
+                            <div class="flex items-center gap-3">
+                                <div class="w-10 h-10 bg-sheet-white border border-sage-mist rounded-btn flex items-center justify-center text-canopy shrink-0">
+                                    <i data-lucide="archive" class="w-5 h-5"></i>
+                                </div>
+                                <h3 class="text-[18px] font-medium text-bark" data-i18n="previousVersions">Versiones Anteriores</h3>
+                            </div>
+                            <i data-lucide="chevron-down" class="chevron w-5 h-5 text-slate shrink-0"></i>
+                        </summary>
+                        <div class="px-[32px] md:px-[48px] pb-8 border-t border-sage-mist pt-6">
+                            <ul class="text-[15px] text-slate space-y-3 list-none p-0 m-0">
+                                <li class="flex items-center justify-between gap-4 flex-wrap">
+                                    <span class="font-medium text-bark">v1.2.3</span>
+                                    <a href="https://drive.usercontent.google.com/u/0/uc?id=1zMSV2JgoAnKyLK7dqmvzWZLMMExJODtF&export=download" target="_blank" rel="noopener" class="inline-flex items-center gap-2 text-canopy hover:opacity-80 font-medium text-[14px]">
+                                        <i data-lucide="download" class="w-4 h-4"></i> <span data-i18n="download">Descargar</span>
+                                    </a>
+                                </li>
+                                <li class="flex items-center justify-between gap-4 flex-wrap">
+                                    <span class="font-medium text-bark">v1.2.4</span>
+                                    <a href="https://drive.usercontent.google.com/u/0/uc?id=1nfmtyI89ca9up_xe1oaYiCfA52VskHEH&export=download" target="_blank" rel="noopener" class="inline-flex items-center gap-2 text-canopy hover:opacity-80 font-medium text-[14px]">
+                                        <i data-lucide="download" class="w-4 h-4"></i> <span data-i18n="download">Descargar</span>
+                                    </a>
+                                </li>
+                                <li class="flex items-center justify-between gap-4 flex-wrap">
+                                    <span class="font-medium text-bark">v1.2.5</span>
+                                    <a href="https://drive.usercontent.google.com/u/0/uc?id=1ds5rMtBjltnjbjMZ5icjbU0V4oflJsXv&export=download" target="_blank" rel="noopener" class="inline-flex items-center gap-2 text-canopy hover:opacity-80 font-medium text-[14px]">
+                                        <i data-lucide="download" class="w-4 h-4"></i> <span data-i18n="download">Descargar</span>
+                                    </a>
+                                </li>
+                                <li class="flex items-center justify-between gap-4 flex-wrap">
+                                    <span class="font-medium text-bark">v1.2.7</span>
+                                    <a href="https://drive.usercontent.google.com/u/0/uc?id=1kC3GqP_5Am8SXcSm2Rss1K4fwVyYYxXM&export=download" target="_blank" rel="noopener" class="inline-flex items-center gap-2 text-canopy hover:opacity-80 font-medium text-[14px]">
+                                        <i data-lucide="download" class="w-4 h-4"></i> <span data-i18n="download">Descargar</span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </details>
+
                 </div>
-
             </div>
         </div>
     </section>
@@ -377,20 +681,100 @@
                 pageTitle: 'Portal de Descargas QGisce', latestVersion: 'Última versión disponible:', compatibleWith: 'Compatible con QGis v3.44.7',
                 navNews: 'Novedades', navInstall: 'Instalación', navContact: 'Contacto', languageLabel: 'Idioma', support: 'Soporte',
                 updateAvailable: 'Actualización Disponible', heroTitle: 'Portal de Descargas QGisce', heroDescription: 'Repositorio oficial de versiones para la integración QGIS-GISCE. Accede a las herramientas, correcciones y mejoras de rendimiento más recientes.', downloadVersion: 'Descargar v1.2.10',
-                changelog: 'Registro de cambios', versionNews: 'Novedades de la versión v1.2.10', observability: 'Observabilidad & Sincronización', featureSentry: 'Captación automática de variable del ERP con DSN de Sentry.', featureSync: 'Los errores originales de sincronización se conservan para facilitar su diagnóstico.',
-                bugfixes: 'Bugfixes & Validación', featureGeometry: 'Corrección de error TypeError en geometrías tras split.', featureNodes: 'Corrige nodos colgantes y violación de unicidad.', featureTools: 'Refactorización en la detección de herramientas.', performance: 'Rendimiento & UX', featureDatabase: 'Eliminación de llamadas redundantes a DB.', featureForms: 'Control mejorado de formularios abiertos.', featureDependencies: 'Actualización a Koo (v6.6.4) y Sentry-sdk (v2.57.0).',
-                installDownloads: 'Instalación y descargas', choosePlatform: 'Elige tu plataforma', executable: 'Ejecutable (.exe)', download: 'Descargar', officialInstaller: 'Instalador Oficial (.msi)', downloadQgis: 'Bajar de QGIS', quickGuide: 'Guía Rápida', cleanStep: '<strong>Limpieza:</strong> Desinstala versiones previas del plugin.', deployStep: '<strong>Despliegue:</strong> Ejecuta el archivo <code>.exe</code> descargado.', activateStep: '<strong>Activación:</strong> Reinicia QGIS y verifica QGisce en <em>Complementos</em>.',
-                zipPackage: 'Paquete ZIP (.zip)', terminalInstall: 'Instalación vía Terminal', terminalInstructions: 'Para instalar QGIS y las dependencias, ejecuta:', qgisInstructions: 'Luego, en QGIS, ve a <strong>Complementos &gt; Administrar e instalar &gt; Instalar a partir de un archivo ZIP</strong> y selecciona el archivo descargado.',
+                changelog: 'Registro de cambios', versionNews: 'Novedades de la versión v1.2.10',
+                versionTableTitle: 'Últimas Versiones Disponibles', thVersion: 'Versión', thStatus: 'Estado', thCompatibility: 'Compatibilidad', statusStable: 'Estable / Actual',
+                observability: 'Observabilidad & Sincronización', featureSentry: 'Captación automática de variable del ERP con DSN de Sentry.', featureSession: 'Gestión de sesiones optimizada con el ERP.',
+                bugfixes: 'Bugfixes & Validación', featureGeometry: 'Corrección de error TypeError en geometrías tras split.', featureNodes: 'Corrige nodos colgantes y violación de unicidad.', featureTools: 'Refactorización en la detección de herramientas.', featureLogging: 'Registro detallado de errores.', featureWarning: 'Supresión de RequestsDependencyWarning de urllib3/chardet al cargar.', featureWidgets: 'Se vuelven a visualizar los campos de formularios que pasaron a widgets nuevos (KOO 6.6.4).',
+                performance: 'Rendimiento & UX', featureDatabase: 'Eliminación de llamadas redundantes a DB.', featureForms: 'Control mejorado de formularios abiertos.', featureDependencies: 'Actualización a Koo (v6.6.4) y Sentry-sdk (v2.57.0).', featureNextgis: 'Incluye NextGIS QuickMapServices (antiguo QuickMapServices).',
+                installDownloads: 'Instalación y descargas', choosePlatform: 'Elige tu plataforma', mainPackages: 'Paquetes Principales',
+                thComponent: 'Componente', thType: 'Tipo', thLink: 'Enlace',
+                executable: 'Ejecutable (.exe)', download: 'Descargar', officialInstaller: 'Instalador Oficial (.msi)', downloadQgis: 'Bajar de QGIS',
+                quickGuideQgis: 'Guía de instalación rápida de QGIS',
+                winQgisStep1: '<strong>Ejecutar:</strong> Haz doble clic sobre el archivo instalador <code>.msi</code> que has descargado.',
+                winQgisStep2: '<strong>Aceptar términos:</strong> Haz clic en <strong>Next</strong>, marca la casilla para aceptar los términos de licencia y vuelve a pulsar <strong>Next</strong>.',
+                winQgisStep3: '<strong>Instalar:</strong> Pulsa el botón <strong>Install</strong>. <em>(Si Windows te pide permisos de administrador, haz clic en "Sí")</em>.',
+                winQgisStep4: '<strong>Finalizar:</strong> Espera a que se complete la barra de progreso y haz clic en <strong>Finish</strong>. ¡QGIS ya está listo para usarse!',
+                pluginGuideWin: 'Guía de Instalación del QGisce Plugin',
+                winPluginStep1: '<strong>Limpieza previa</strong> <em>(en caso de tener una versión anterior)</em>: Desinstale el plugin actual desde el gestor. Elimine la carpeta <code>qgisce</code> en la ruta <code>%APPDATA%\\QGIS\\QGIS3\\profiles\\default\\python\\plugins\\</code> si existe.',
+                winPluginStep2: '<strong>Despliegue:</strong> Ejecute el archivo <code>.exe</code> descargado y siga las instrucciones.',
+                winPluginStep3: '<strong>Activación:</strong> Reinicie QGIS. Diríjase a <strong>Complementos > Administrar e instalar complementos</strong> y verifique que QGisce esté marcado como activo.',
+                previousVersions: 'Versiones Anteriores',
+                zipPackage: 'Paquete ZIP (.zip)', installGuide: 'Guía de instalación', seeBelow: 'Ver siguiente punto',
+                ubuntuIntro: 'Sigue estos sencillos pasos para instalar la última versión de QGIS. Solo tendrás que copiar los comandos que están en los recuadros y pegarlos en tu sistema.',
+                ubuntuStep1: '<strong>Paso 1: Abrir la terminal</strong> — Presiona las teclas <code>Ctrl</code> + <code>Alt</code> + <code>T</code> al mismo tiempo en tu teclado. Se abrirá una ventana negra.',
+                ubuntuStep2: '<strong>Paso 2: Instalar herramientas necesarias</strong> — Copia el siguiente texto, pégalo en la terminal y presiona <strong>Enter</strong>. <em>(Es posible que te pida tu contraseña de usuario; al escribirla no se verán asteriscos, es normal. Escríbela y presiona Enter)</em>.',
+                ubuntuStep3: '<strong>Paso 3: Añadir la clave de seguridad de QGIS</strong> — Copia y pega estas dos líneas, una por una, presionando <strong>Enter</strong> después de cada una:',
+                ubuntuStep4: '<strong>Paso 4: Conectar con el servidor oficial</strong> — Copia <strong>todo este bloque</strong> de texto de una sola vez, pégalo en la terminal y presiona <strong>Enter</strong>. Esto configurará tu equipo automáticamente:',
+                ubuntuStep5: '<strong>Paso 5: Instalar el programa</strong> — Por último, dile a tu equipo que descargue e instale QGIS copiando y pegando este comando:',
+                ubuntuStep5Note: '¡Listo! Dependiendo de tu conexión a internet, este último paso puede tardar un par de minutos. Cuando termine y vuelva a aparecer tu nombre de usuario en la terminal, ya podrás cerrar la ventana, buscar QGIS en tu menú de aplicaciones y abrirlo.',
+                pluginGuideUbuntu: 'Guía de Instalación del QGisce Plugin vía (.zip)',
+                ubuntuPluginStep1: 'Paso 1: Preparar el archivo',
+                ubuntuPluginStep1a: 'Asegúrate de tener el archivo descargado en tu ordenador (por ejemplo, <code>qgisce_plugin_v1.2.2.zip</code>).',
+                ubuntuPluginStep1b: '<strong>No extraigas</strong> el contenido del archivo ZIP. QGIS se encargará de instalarlo directamente desde el paquete comprimido.',
+                ubuntuPluginStep2: 'Paso 2: Acceder al Gestor de Complementos',
+                ubuntuPluginStep2a: 'Abre <strong>QGIS</strong> en tu sistema.',
+                ubuntuPluginStep2b: 'En la barra de menú superior, haz clic en <strong>Complementos</strong> (Plugins).',
+                ubuntuPluginStep2c: 'Selecciona la opción <strong>Administrar e instalar complementos...</strong> (Manage and Install Plugins...). <em>(Esto abrirá una nueva ventana con el repositorio de QGIS)</em>.',
+                ubuntuPluginStep3: 'Paso 3: Instalar desde ZIP',
+                ubuntuPluginStep3a: 'En la ventana del Gestor de Complementos, fíjate en el menú lateral izquierdo y selecciona la pestaña <strong>Instalar a partir de un archivo ZIP</strong> (Install from ZIP).',
+                ubuntuPluginStep3b: 'Haz clic en el botón de los tres puntos <code>[...]</code> junto al campo "Archivo ZIP".',
+                ubuntuPluginStep3c: 'Navega por las carpetas de tu ordenador y <strong>selecciona el archivo <code>.zip</code></strong> que descargaste en el Paso 1.',
+                ubuntuPluginStep3d: '(Opcional) Si estás actualizando una versión anterior, asegúrate de marcar la casilla <strong>"Reemplazar si ya existe una versión más antigua"</strong>.',
+                ubuntuPluginStep3e: 'Finalmente, haz clic en el botón <strong>Instalar complemento</strong> (Install plugin).',
+                ubuntuPluginStep4: 'Paso 4: Verificación',
+                ubuntuPluginStep4a: 'Una vez que la barra de progreso termine, deberías ver un mensaje de éxito en la parte superior de la ventana.',
+                ubuntuPluginStep4b: 'Cierra la ventana del gestor.',
+                ubuntuPluginStep4c: 'El plugin QGisce ya está instalado y debería estar visible en tu interfaz (revisa las barras de herramientas o el menú superior).',
                 footerDescription: 'Herramienta de integración oficial entre el entorno geográfico QGIS y el ERP GISCE.', copyright: '© 2026 GISCE-TI, S.L. Todos los derechos reservados.', technicalSupport: 'Soporte Técnico', supportQuestion: '¿Necesita soporte o ha encontrado algún error en el sistema?', openSac: 'Abra un SAC enviando un correo a:', supportNote: '* Por favor, adjunte capturas de pantalla o el registro de errores de QGIS.'
             },
             ca: {
                 pageTitle: 'Portal de Descàrregues QGisce', latestVersion: 'Última versió disponible:', compatibleWith: 'Compatible amb QGis v3.44.7',
                 navNews: 'Novetats', navInstall: 'Instal·lació', navContact: 'Contacte', languageLabel: 'Idioma', support: 'Suport',
                 updateAvailable: 'Actualització disponible', heroTitle: 'Portal de Descàrregues QGisce', heroDescription: 'Repositori oficial de versions per a la integració QGIS-GISCE. Accedeix a les eines, correccions i millores de rendiment més recents.', downloadVersion: 'Descarrega la v1.2.10',
-                changelog: 'Registre de canvis', versionNews: 'Novetats de la versió v1.2.10', observability: 'Observabilitat i sincronització', featureSentry: 'Captació automàtica de la variable de l\'ERP amb el DSN de Sentry.', featureSync: 'Els errors originals de sincronització es conserven per facilitar-ne el diagnòstic.',
-                bugfixes: 'Correccions i validació', featureGeometry: 'Correcció de l\'error TypeError en geometries després d\'un split.', featureNodes: 'Corregeix nodes penjants i violacions d\'unicitat.', featureTools: 'Refactorització de la detecció d\'eines.', performance: 'Rendiment i UX', featureDatabase: 'Eliminació de crides redundants a la base de dades.', featureForms: 'Control millorat dels formularis oberts.', featureDependencies: 'Actualització a Koo (v6.6.4) i Sentry-sdk (v2.57.0).',
-                installDownloads: 'Instal·lació i descàrregues', choosePlatform: 'Tria la teva plataforma', executable: 'Executable (.exe)', download: 'Descarrega', officialInstaller: 'Instal·lador oficial (.msi)', downloadQgis: 'Descarrega de QGIS', quickGuide: 'Guia ràpida', cleanStep: '<strong>Neteja:</strong> Desinstal·la les versions anteriors del connector.', deployStep: '<strong>Desplegament:</strong> Executa el fitxer <code>.exe</code> descarregat.', activateStep: '<strong>Activació:</strong> Reinicia QGIS i verifica QGisce a <em>Complements</em>.',
-                zipPackage: 'Paquet ZIP (.zip)', terminalInstall: 'Instal·lació mitjançant el terminal', terminalInstructions: 'Per instal·lar QGIS i les dependències, executa:', qgisInstructions: 'Després, a QGIS, ves a <strong>Complements &gt; Administra i instal·la complements &gt; Instal·la des d\'un fitxer ZIP</strong> i selecciona el fitxer descarregat.',
+                changelog: 'Registre de canvis', versionNews: 'Novetats de la versió v1.2.10',
+                versionTableTitle: 'Últimes Versions Disponibles', thVersion: 'Versió', thStatus: 'Estat', thCompatibility: 'Compatibilitat', statusStable: 'Estable / Actual',
+                observability: 'Observabilitat i sincronització', featureSentry: 'Captació automàtica de la variable de l\'ERP amb el DSN de Sentry.', featureSession: 'Gestió de sessions optimitzada amb l\'ERP.',
+                bugfixes: 'Correccions i validació', featureGeometry: 'Correcció de l\'error TypeError en geometries després d\'un split.', featureNodes: 'Corregeix nodes penjants i violacions d\'unicitat.', featureTools: 'Refactorització de la detecció d\'eines.', featureLogging: 'Registre detallat d\'errors.', featureWarning: 'Supressió de RequestsDependencyWarning d\'urllib3/chardet en carregar.', featureWidgets: 'Es tornen a visualitzar els camps de formularis que van passar a widgets nous (KOO 6.6.4).',
+                performance: 'Rendiment i UX', featureDatabase: 'Eliminació de crides redundants a la base de dades.', featureForms: 'Control millorat dels formularis oberts.', featureDependencies: 'Actualització a Koo (v6.6.4) i Sentry-sdk (v2.57.0).', featureNextgis: 'Inclou NextGIS QuickMapServices (antic QuickMapServices).',
+                installDownloads: 'Instal·lació i descàrregues', choosePlatform: 'Tria la teva plataforma', mainPackages: 'Paquets Principals',
+                thComponent: 'Component', thType: 'Tipus', thLink: 'Enllaç',
+                executable: 'Executable (.exe)', download: 'Descarrega', officialInstaller: 'Instal·lador oficial (.msi)', downloadQgis: 'Descarrega de QGIS',
+                quickGuideQgis: 'Guia d\'instal·lació ràpida de QGIS',
+                winQgisStep1: '<strong>Executar:</strong> Fes doble clic sobre el fitxer instal·lador <code>.msi</code> que has descarregat.',
+                winQgisStep2: '<strong>Acceptar termes:</strong> Fes clic a <strong>Next</strong>, marca la casella per acceptar els termes de llicència i torna a prémer <strong>Next</strong>.',
+                winQgisStep3: '<strong>Instal·lar:</strong> Prem el botó <strong>Install</strong>. <em>(Si Windows et demana permisos d\'administrador, fes clic a "Sí")</em>.',
+                winQgisStep4: '<strong>Finalitzar:</strong> Espera que es completi la barra de progrés i fes clic a <strong>Finish</strong>. Ja tens QGIS a punt!',
+                pluginGuideWin: 'Guia d\'Instal·lació del QGisce Plugin',
+                winPluginStep1: '<strong>Neteja prèvia</strong> <em>(en cas de tenir una versió anterior)</em>: Desinstal·la el connector actual des del gestor. Elimina la carpeta <code>qgisce</code> a la ruta <code>%APPDATA%\\QGIS\\QGIS3\\profiles\\default\\python\\plugins\\</code> si existeix.',
+                winPluginStep2: '<strong>Desplegament:</strong> Executa el fitxer <code>.exe</code> descarregat i segueix les instruccions.',
+                winPluginStep3: '<strong>Activació:</strong> Reinicia QGIS. Vés a <strong>Complements > Administra i instal·la complements</strong> i verifica que QGisce estigui marcat com a actiu.',
+                previousVersions: 'Versions Anteriors',
+                zipPackage: 'Paquet ZIP (.zip)', installGuide: 'Guia d\'instal·lació', seeBelow: 'Veure punt següent',
+                ubuntuIntro: 'Segueix aquests senzills passos per instal·lar l\'última versió de QGIS. Només hauràs de copiar les ordres que hi ha als requadres i enganxar-les al teu sistema.',
+                ubuntuStep1: '<strong>Pas 1: Obrir la terminal</strong> — Prem les tecles <code>Ctrl</code> + <code>Alt</code> + <code>T</code> alhora al teu teclat. S\'obrirà una finestra negra.',
+                ubuntuStep2: '<strong>Pas 2: Instal·lar eines necessàries</strong> — Copia el següent text, enganxa\'l a la terminal i prem <strong>Enter</strong>. <em>(És possible que et demani la contrasenya d\'usuari; en escriure-la no es veuran asteriscos, és normal. Escriu-la i prem Enter)</em>.',
+                ubuntuStep3: '<strong>Pas 3: Afegir la clau de seguretat de QGIS</strong> — Copia i enganxa aquestes dues línies, una per una, prement <strong>Enter</strong> després de cadascuna:',
+                ubuntuStep4: '<strong>Pas 4: Connectar amb el servidor oficial</strong> — Copia <strong>tot aquest bloc</strong> de text d\'una sola vegada, enganxa\'l a la terminal i prem <strong>Enter</strong>. Això configurarà el teu equip automàticament:',
+                ubuntuStep5: '<strong>Pas 5: Instal·lar el programa</strong> — Finalment, digues al teu equip que descarregui i instal·li QGIS copiant i enganxant aquesta ordre:',
+                ubuntuStep5Note: 'Llest! Depenent de la teva connexió a internet, aquest últim pas pot trigar un parell de minuts. Quan acabi i torni a aparèixer el teu nom d\'usuari a la terminal, ja podràs tancar la finestra, buscar QGIS al teu menú d\'aplicacions i obrir-lo.',
+                pluginGuideUbuntu: 'Guia d\'Instal·lació del QGisce Plugin via (.zip)',
+                ubuntuPluginStep1: 'Pas 1: Preparar el fitxer',
+                ubuntuPluginStep1a: 'Assegura\'t de tenir el fitxer descarregat al teu ordinador (per exemple, <code>qgisce_plugin_v1.2.2.zip</code>).',
+                ubuntuPluginStep1b: '<strong>No extragis</strong> el contingut del fitxer ZIP. QGIS s\'encarregarà d\'instal·lar-lo directament des del paquet comprimit.',
+                ubuntuPluginStep2: 'Pas 2: Accedir al Gestor de Complements',
+                ubuntuPluginStep2a: 'Obre <strong>QGIS</strong> al teu sistema.',
+                ubuntuPluginStep2b: 'A la barra de menú superior, fes clic a <strong>Complements</strong> (Plugins).',
+                ubuntuPluginStep2c: 'Selecciona l\'opció <strong>Administra i instal·la complements...</strong> (Manage and Install Plugins...). <em>(Això obrirà una nova finestra amb el repositori de QGIS)</em>.',
+                ubuntuPluginStep3: 'Pas 3: Instal·lar des de ZIP',
+                ubuntuPluginStep3a: 'A la finestra del Gestor de Complements, fixa\'t en el menú lateral esquerre i selecciona la pestanya <strong>Instal·la a partir d\'un fitxer ZIP</strong> (Install from ZIP).',
+                ubuntuPluginStep3b: 'Fes clic al botó dels tres punts <code>[...]</code> al costat del camp "Fitxer ZIP".',
+                ubuntuPluginStep3c: 'Navega per les carpetes del teu ordinador i <strong>selecciona el fitxer <code>.zip</code></strong> que vas descarregar al Pas 1.',
+                ubuntuPluginStep3d: '(Opcional) Si estàs actualitzant una versió anterior, assegura\'t de marcar la casella <strong>"Reemplaça si ja existeix una versió més antiga"</strong>.',
+                ubuntuPluginStep3e: 'Finalment, fes clic al botó <strong>Instal·la complement</strong> (Install plugin).',
+                ubuntuPluginStep4: 'Pas 4: Verificació',
+                ubuntuPluginStep4a: 'Un cop la barra de progrés acabi, hauries de veure un missatge d\'èxit a la part superior de la finestra.',
+                ubuntuPluginStep4b: 'Tanca la finestra del gestor.',
+                ubuntuPluginStep4c: 'El connector QGisce ja està instal·lat i hauria d\'estar visible a la teva interfície (revisa les barres d\'eines o el menú superior).',
                 footerDescription: 'Eina d\'integració oficial entre l\'entorn geogràfic QGIS i l\'ERP GISCE.', copyright: '© 2026 GISCE-TI, S.L. Tots els drets reservats.', technicalSupport: 'Suport tècnic', supportQuestion: 'Necessites suport o has trobat algun error al sistema?', openSac: 'Obre un SAC enviant un correu a:', supportNote: '* Si us plau, adjunta captures de pantalla o el registre d\'errors de QGIS.'
             }
         };
@@ -401,15 +785,30 @@
             document.documentElement.lang = selectedLanguage;
             document.title = messages.pageTitle;
             document.querySelectorAll('[data-i18n]').forEach((element) => {
-                element.textContent = messages[element.dataset.i18n];
+                const key = element.dataset.i18n;
+                if (messages[key] !== undefined) element.textContent = messages[key];
             });
             document.querySelectorAll('[data-i18n-html]').forEach((element) => {
-                element.innerHTML = messages[element.dataset.i18nHtml];
+                const key = element.dataset.i18nHtml;
+                if (messages[key] !== undefined) element.innerHTML = messages[key];
             });
             const selector = document.getElementById('language-selector');
             selector.value = selectedLanguage;
             selector.setAttribute('aria-label', messages.languageLabel);
         }
+
+        // Cambio de tabs Windows / Ubuntu
+        document.querySelectorAll('.tab-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                const tab = btn.dataset.tab;
+                document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+                document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+                btn.classList.add('active');
+                document.getElementById('tab-' + tab).classList.add('active');
+                // Re-render lucide icons por si acaso
+                lucide.createIcons();
+            });
+        });
 
         const browserLanguage = (navigator.languages && navigator.languages[0]) || navigator.language || 'es';
         const initialLanguage = browserLanguage.toLowerCase().split('-')[0] === 'ca' ? 'ca' : 'es';
