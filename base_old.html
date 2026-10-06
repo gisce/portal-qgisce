@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Portal de Descargas QGisce - GISCE</title>
+    <title>Portal de Descargas QGisce</title>
     
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -15,18 +15,17 @@
             theme: {
                 extend: {
                     colors: {
-                        // Paleta extraída de la Landing Page de ATC / Corporativa GISCE
-                        canopy: '#2974CA',          // Azul Primario GISCE
-                        'mint-pulse': 'rgb(2 116 202)',     // Naranja Acento GISCE
-                        'mint-pulse-light': 'rgb(3 92 164)', // Naranja Claro / Hover
-                        'orb-violet': '#0284c7',     // Azul Secundario / Destacados
-                        'cream-paper': '#f8fafc',    // Fondo Superficie Clara (Slate 50)
-                        'sheet-white': '#ffffff',    // Blanco Puro
-                        bark: '#0f172a',             // Texto Oscuro Principal (Slate 900)
-                        ink: '#020617',              // Titulares (Slate 950)
-                        slate: '#475569',            // Texto Secundario (Slate 600)
-                        'sage-mist': '#e2e8f0',      // Bordes y Divisores (Slate 200)
-                        'pale-sage': '#94a3b8',      // Texto Suave en Footer (Slate 400)
+                        canopy: '#104336',
+                        'mint-pulse': '#0cd370',
+                        'mint-pulse-light': '#0eed7d',
+                        'orb-violet': '#7c18d3',
+                        'cream-paper': '#f3f1ec',
+                        'sheet-white': '#ffffff',
+                        bark: '#101f1e',
+                        ink: '#000000',
+                        slate: '#535e5d',
+                        'sage-mist': '#afc4bf',
+                        'pale-sage': '#c2cec8',
                     },
                     fontFamily: {
                         sans: ['"DM Sans"', 'sans-serif'],
@@ -47,17 +46,17 @@
     </script>
 
     <style>
-        /* Base Settings - Paleta GISCE ATC */
+        /* Arcadia Base Settings */
         body {
-            background-color: #f8fafc;
-            color: #0f172a;
+            background-color: #f3f1ec; /* Cream Paper */
+            color: #101f1e; /* Bark */
             -webkit-font-smoothing: antialiased;
             -moz-osx-font-smoothing: grayscale;
         }
 
         /* Hero Gradient Wash */
         .hero-wash {
-            background: linear-gradient(278deg, #e2efff 14.83%, #ffffff 52.99%, #d1e2f3 79.47%);
+            background: linear-gradient(222deg, #9ecbc0 14.83%, #fdfdfd 52.99%, #e9e9e9 79.47%);
         }
 
         /* Custom Scrollbar for code blocks */
@@ -65,19 +64,19 @@
             height: 6px;
         }
         .code-scroll::-webkit-scrollbar-track {
-            background: #f1f5f9; 
+            background: #f3f1ec; 
             border-radius: 4px;
         }
         .code-scroll::-webkit-scrollbar-thumb {
-            background: #cbd5e1; 
+            background: #afc4bf; 
             border-radius: 4px;
         }
 
         /* Tabs de plataforma */
         .tab-btn.active {
-            background-color: rgb(2 116 202);
+            background-color: #104336;
             color: #ffffff;
-            border-color: rgb(6, 99, 170);
+            border-color: #104336;
         }
         .tab-panel { display: none; }
         .tab-panel.active { display: block; }
@@ -100,18 +99,16 @@
 
     <div class="bg-canopy text-white py-[10px] px-4 text-center w-full">
         <p class="text-[13px] md:text-[14px] font-normal leading-tight">
-            <span data-i18n="latestVersion">Última versión disponible:</span> <strong>v1.2.10</strong> <span class="mx-2 opacity-60">|</span> <span data-i18n="compatibleWith">Compatible con QGis v3.34.5+</span> <span class="mx-2 opacity-60"></span>
+            <span data-i18n="latestVersion">Última versión disponible:</span> <strong>v1.2.10</strong> <span class="mx-2 opacity-60">|</span> <span data-i18n="compatibleWith">Compatible con QGis v3.34.5+</span>
         </p>
     </div>
 
     <nav class="sticky top-0 z-50 bg-sheet-white h-[72px] flex items-center border-b border-sage-mist px-6 lg:px-12 w-full">
         <div class="max-w-[1200px] mx-auto w-full flex justify-between items-center">
-            <!-- Branding GISCE + QGisce idéntico al estilo de cabecera de la Landing ATC -->
-            <a href="https://gisce.net" target="_blank" rel="noopener" class="flex items-center gap-2.5 hover:opacity-90 transition-opacity">
-                <img src="logo.png" alt="GISCE" class="h-8 w-auto">
-                <span class="text-lg font-bold tracking-tight text-slate-900">GISCE</span>
-                <span class="text-slate text-[18px] font-light">| QGisce</span>
-            </a>
+            <div class="flex items-center gap-2">
+                <i data-lucide="map" class="text-canopy w-6 h-6"></i>
+                <span class="text-canopy text-[20px] font-medium tracking-tight">QGisce</span>
+            </div>
             
             <div class="hidden md:flex items-center gap-8">
                 <a href="#novedades" class="text-[14px] text-bark hover:text-canopy transition-colors font-normal" data-i18n="navNews">Novedades</a>
@@ -120,13 +117,12 @@
             </div>
 
             <div class="flex items-center gap-3">
-                <!-- Selector de idioma estilo Button Group -->
-                <div class="flex items-center gap-0.5 rounded-lg border border-sage-mist p-0.5 bg-white">
-                    <button type="button" data-lang="es" class="lang-btn rounded-md px-2.5 py-1 text-xs font-semibold uppercase transition-colors bg-canopy text-white">es</button>
-                    <button type="button" data-lang="ca" class="lang-btn rounded-md px-2.5 py-1 text-xs font-semibold uppercase transition-colors text-slate hover:text-bark">ca</button>
-                </div>
-
-                <a href="#soporte" class="hidden sm:inline-flex items-center justify-center px-[24px] py-[8px] border border-canopy text-canopy rounded-btn text-[14px] font-medium hover:bg-mint-pulse-light text-white transition-colors bg-mint-pulse" data-i18n="support">
+                <label for="language-selector" class="sr-only" data-i18n="languageLabel">Idioma</label>
+                <select id="language-selector" class="border border-sage-mist rounded-btn bg-white px-3 py-[14px] text-[14px] text-bark" aria-label="Idioma">
+                    <option value="ca">Català</option>
+                    <option value="es">Español</option>
+                </select>
+                <a href="#soporte" class="hidden sm:inline-flex items-center justify-center px-[24px] py-[15px] border border-canopy text-canopy rounded-btn text-[14px] font-medium hover:bg-canopy hover:text-white transition-colors bg-transparent" data-i18n="support">
                     Soporte
                 </a>
             </div>
@@ -148,7 +144,7 @@
             <p class="text-[18px] text-slate font-normal leading-[1.5] max-w-2xl mb-10">
                 <span data-i18n="heroDescription">Repositorio oficial de versiones para la integración QGIS-GISCE. Accede a las herramientas, correcciones y mejoras de rendimiento más recientes.</span>
             </p>
-            <a href="#instalacion" class="inline-flex items-center justify-center bg-mint-pulse text-white px-[24px] py-[16px] rounded-btn text-[15px] font-medium hover:bg-mint-pulse-light transition-all gap-2 shadow-md">
+            <a href="#instalacion" class="inline-flex items-center justify-center bg-mint-pulse text-bark px-[24px] py-[16px] rounded-btn text-[15px] font-medium hover:brightness-105 transition-all gap-2">
                 <i data-lucide="download" class="w-5 h-5"></i>
                 <span data-i18n="downloadVersion">Descargar v1.2.10</span>
             </a>
@@ -170,7 +166,7 @@
             </div>
 
             <!-- Tabla de versiones -->
-            <div class="bg-sheet-white border border-sage-mist rounded-card overflow-hidden mb-12 shadow-sm">
+            <div class="bg-sheet-white border border-sage-mist rounded-card overflow-hidden mb-12">
                 <div class="px-6 py-5 border-b border-sage-mist">
                     <h3 class="text-[16px] font-medium text-bark" data-i18n="versionTableTitle">Últimas Versiones Disponibles</h3>
                 </div>
@@ -188,7 +184,7 @@
                                 <td class="px-6 py-4 text-[15px] font-medium text-bark">v1.2.10</td>
                                 <td class="px-6 py-4">
                                     <span class="inline-flex items-center gap-2 text-[14px] font-medium text-canopy">
-                                        <span class="w-2 h-2 rounded-full bg-emerald-500"></span>
+                                        <span class="w-2 h-2 rounded-full bg-mint-pulse"></span>
                                         <span data-i18n="statusStable">Estable / Actual</span>
                                     </span>
                                 </td>
@@ -203,8 +199,8 @@
             <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
                 
                 <!-- Card 1 -->
-                <div class="bg-sheet-white border border-sage-mist rounded-card p-[32px] md:p-[40px] flex flex-col h-full shadow-sm">
-                    <div class="w-12 h-12 flex items-center justify-center rounded-btn bg-blue-50 text-canopy mb-6">
+                <div class="bg-sheet-white border border-sage-mist rounded-card p-[32px] md:p-[40px] flex flex-col h-full">
+                    <div class="w-12 h-12 flex items-center justify-center rounded-btn bg-cream-paper text-canopy mb-6">
                         <i data-lucide="activity" class="w-6 h-6"></i>
                     </div>
                     <h3 class="text-[20px] font-medium text-bark leading-[1.29] mb-4">
@@ -223,8 +219,8 @@
                 </div>
 
                 <!-- Card 2 -->
-                <div class="bg-sheet-white border border-sage-mist rounded-card p-[32px] md:p-[40px] flex flex-col h-full shadow-sm">
-                    <div class="w-12 h-12 flex items-center justify-center rounded-btn bg-blue-50 text-canopy mb-6">
+                <div class="bg-sheet-white border border-sage-mist rounded-card p-[32px] md:p-[40px] flex flex-col h-full">
+                    <div class="w-12 h-12 flex items-center justify-center rounded-btn bg-cream-paper text-canopy mb-6">
                         <i data-lucide="shield-check" class="w-6 h-6"></i>
                     </div>
                     <h3 class="text-[20px] font-medium text-bark leading-[1.29] mb-4">
@@ -259,8 +255,8 @@
                 </div>
 
                 <!-- Card 3 -->
-                <div class="bg-sheet-white border border-sage-mist rounded-card p-[32px] md:p-[40px] flex flex-col h-full shadow-sm">
-                    <div class="w-12 h-12 flex items-center justify-center rounded-btn bg-blue-50 text-canopy mb-6">
+                <div class="bg-sheet-white border border-sage-mist rounded-card p-[32px] md:p-[40px] flex flex-col h-full">
+                    <div class="w-12 h-12 flex items-center justify-center rounded-btn bg-cream-paper text-canopy mb-6">
                         <i data-lucide="zap" class="w-6 h-6"></i>
                     </div>
                     <h3 class="text-[20px] font-medium text-bark leading-[1.29] mb-4">
@@ -304,11 +300,11 @@
 
             <!-- Tabs de plataforma -->
             <div class="flex justify-center gap-3 mb-10">
-                <button data-tab="windows" class="tab-btn active inline-flex items-center gap-2 px-[24px] py-[14px] rounded-btn border border-sage-mist text-[14px] font-medium transition-colors text-bark bg-transparent hover:bg-mint-pulse-light hover:text-white">
+                <button data-tab="windows" class="tab-btn active inline-flex items-center gap-2 px-[24px] py-[14px] rounded-btn border border-sage-mist text-[14px] font-medium transition-colors text-bark bg-transparent hover:bg-cream-paper">
                     <i data-lucide="monitor" class="w-4 h-4"></i>
                     Microsoft Windows
                 </button>
-                <button data-tab="ubuntu" class="tab-btn inline-flex items-center gap-2 px-[24px] py-[14px] rounded-btn border border-sage-mist text-[14px] font-medium transition-colors text-bark bg-transparent hover:bg-mint-pulse-light hover:text-white">
+                <button data-tab="ubuntu" class="tab-btn inline-flex items-center gap-2 px-[24px] py-[14px] rounded-btn border border-sage-mist text-[14px] font-medium transition-colors text-bark bg-transparent hover:bg-cream-paper">
                     <i data-lucide="terminal" class="w-4 h-4"></i>
                     Ubuntu / Linux
                 </button>
@@ -335,7 +331,7 @@
                                         <td class="px-4 py-4 text-[15px] font-medium text-bark">QGisce Plugin v1.2.10</td>
                                         <td class="px-4 py-4 text-[15px] text-slate" data-i18n="executable">Ejecutable (.exe)</td>
                                         <td class="px-4 py-4">
-                                            <a href="./qgisce-installer-v1.2.10.exe" download="qgisce-installer-v1.2.10.exe" class="inline-flex items-center gap-2 bg-canopy text-white px-[16px] py-[8px] rounded-btn text-[13px] font-medium hover:bg-mint-pulse-light transition-colors">
+                                            <a href="./qgisce-installer-v1.2.10.exe" download="qgisce-installer-v1.2.10.exe" class="inline-flex items-center gap-2 bg-canopy text-white px-[16px] py-[8px] rounded-btn text-[13px] font-medium hover:bg-bark transition-colors">
                                                 <i data-lucide="download" class="w-4 h-4"></i>
                                                 <span data-i18n="download">Descargar</span>
                                             </a>
@@ -472,7 +468,7 @@
                                         <td class="px-4 py-4 text-[15px] font-medium text-bark">QGisce Plugin v1.2.10</td>
                                         <td class="px-4 py-4 text-[15px] text-slate" data-i18n="zipPackage">Paquete ZIP (.zip)</td>
                                         <td class="px-4 py-4">
-                                            <a href="./qgisce-v1.2.10.zip" download="qgisce-v1.2.10.zip" class="inline-flex items-center gap-2 bg-canopy text-white px-[16px] py-[8px] rounded-btn text-[13px] font-medium hover:bg-mint-pulse-light transition-colors">
+                                            <a href="./qgisce-v1.2.10.zip" download="qgisce-v1.2.10.zip" class="inline-flex items-center gap-2 bg-canopy text-white px-[16px] py-[8px] rounded-btn text-[13px] font-medium hover:bg-bark transition-colors">
                                                 <i data-lucide="download" class="w-4 h-4"></i>
                                                 <span data-i18n="download">Descargar</span>
                                             </a>
@@ -647,29 +643,29 @@ EOF</code>
         <div class="max-w-[1200px] mx-auto flex flex-col md:flex-row justify-between items-start gap-12">
             
             <div class="max-w-sm">
-            <a href="#" class="flex items-center gap-2.5">
-                <img src="logo.png" alt="GISCE" class="h-8 w-auto">
-                <span class="text-lg font-bold tracking-tight text-slate-900">GISCE</span>
-            </a>
-                <p class="text-[16px] font-normal leading-[1.5] text-white mb-6">
+                <div class="flex items-center gap-2 mb-6 text-white">
+                    <i data-lucide="map" class="w-6 h-6"></i>
+                    <span class="text-[20px] font-medium tracking-tight">QGisce</span>
+                </div>
+                <p class="text-[16px] font-normal leading-[1.5] text-pale-sage mb-6">
                     <span data-i18n="footerDescription">Herramienta de integración oficial entre el entorno geográfico QGIS y el ERP GISCE.</span>
                 </p>
-                <p class="text-[14px] text-white">
-                    <span data-i18n="copyright">© 2026 GISCE-TI, S.L. Todos los derechos reservados.</span> <a href="https://gisce.net" target="_blank" rel="noopener" class="hover:underline text-mint-pulse">gisce.net</a>
+                <p class="text-[14px] text-pale-sage">
+                    <span data-i18n="copyright">© 2026 GISCE-TI, S.L. Todos los derechos reservados.</span>
                 </p>
             </div>
 
             <div>
-                <span class="text-[13px] font-bold text-white uppercase tracking-eyebrow block mb-6">
+                <span class="text-[13px] font-bold text-mint-pulse uppercase tracking-eyebrow block mb-6">
                     <span data-i18n="technicalSupport">Soporte Técnico</span>
                 </span>
-                <p class="text-[16px] font-normal leading-[1.5] text-white mb-4 max-w-md">
+                <p class="text-[16px] font-normal leading-[1.5] text-pale-sage mb-4 max-w-md">
                     <span data-i18n="supportQuestion">¿Necesita soporte o ha encontrado algún error en el sistema?</span>
                 </p>
-                <div class="bg-[#00386c] border border-[#004b87] rounded-card p-6 inline-flex flex-col gap-2">
+                <div class="bg-[#1a5345] border border-[#236b59] rounded-card p-6 inline-flex flex-col gap-2">
                     <span class="text-[14px] font-medium" data-i18n="openSac">Abra un SAC enviando un correo a:</span>
-                    <a href="mailto:sac@gisce.net" class="text-[20px] text-[#4caefd] font-light hover:underline">sac@gisce.net</a>
-                    <span class="text-[13px] text-white mt-2 block">
+                    <a href="mailto:sac@gisce.net" class="text-[20px] font-light text-mint-pulse hover:underline">sac@gisce.net</a>
+                    <span class="text-[13px] text-pale-sage mt-2 block">
                         <span data-i18n="supportNote">* Por favor, adjunte capturas de pantalla o el registro de errores de QGIS.</span>
                     </span>
                 </div>
@@ -682,7 +678,7 @@ EOF</code>
     <script>
         const translations = {
             es: {
-                pageTitle: 'Portal de Descargas QGisce - GISCE', latestVersion: 'Última versión disponible:', compatibleWith: 'Compatible con QGis v3.34.5+',
+                pageTitle: 'Portal de Descargas QGisce', latestVersion: 'Última versión disponible:', compatibleWith: 'Compatible con QGis v3.34.5+',
                 navNews: 'Novedades', navInstall: 'Instalación', navContact: 'Contacto', languageLabel: 'Idioma', support: 'Soporte',
                 updateAvailable: 'Actualización Disponible', heroTitle: 'Portal de Descargas QGisce', heroDescription: 'Repositorio oficial de versiones para la integración QGIS-GISCE. Accede a las herramientas, correcciones y mejoras de rendimiento más recientes.', downloadVersion: 'Descargar v1.2.10',
                 changelog: 'Registro de cambios', versionNews: 'Novedades de la versión v1.2.10',
@@ -732,7 +728,7 @@ EOF</code>
                 footerDescription: 'Herramienta de integración oficial entre el entorno geográfico QGIS y el ERP GISCE.', copyright: '© 2026 GISCE-TI, S.L. Todos los derechos reservados.', technicalSupport: 'Soporte Técnico', supportQuestion: '¿Necesita soporte o ha encontrado algún error en el sistema?', openSac: 'Abra un SAC enviando un correo a:', supportNote: '* Por favor, adjunte capturas de pantalla o el registro de errores de QGIS.'
             },
             ca: {
-                pageTitle: 'Portal de Descàrregues QGisce - GISCE', latestVersion: 'Última versió disponible:', compatibleWith: 'Compatible amb QGis v3.34.5+',
+                pageTitle: 'Portal de Descàrregues QGisce', latestVersion: 'Última versió disponible:', compatibleWith: 'Compatible amb QGis v3.34.5+',
                 navNews: 'Novetats', navInstall: 'Instal·lació', navContact: 'Contacte', languageLabel: 'Idioma', support: 'Suport',
                 updateAvailable: 'Actualització disponible', heroTitle: 'Portal de Descàrregues QGisce', heroDescription: 'Repositori oficial de versions per a la integració QGIS-GISCE. Accedeix a les eines, correccions i millores de rendiment més recents.', downloadVersion: 'Descarrega la v1.2.10',
                 changelog: 'Registre de canvis', versionNews: 'Novetats de la versió v1.2.10',
@@ -788,37 +784,18 @@ EOF</code>
             const messages = translations[selectedLanguage];
             document.documentElement.lang = selectedLanguage;
             document.title = messages.pageTitle;
-
             document.querySelectorAll('[data-i18n]').forEach((element) => {
                 const key = element.dataset.i18n;
                 if (messages[key] !== undefined) element.textContent = messages[key];
             });
-
             document.querySelectorAll('[data-i18n-html]').forEach((element) => {
                 const key = element.dataset.i18nHtml;
                 if (messages[key] !== undefined) element.innerHTML = messages[key];
             });
-
-            // Actualizar estados visuales de los botones del selector
-            document.querySelectorAll('.lang-btn').forEach((btn) => {
-                if (btn.dataset.lang === selectedLanguage) {
-                    btn.className = 'lang-btn rounded-md px-2.5 py-1 text-xs font-semibold uppercase transition-colors bg-canopy text-white';
-                } else {
-                    btn.className = 'lang-btn rounded-md px-2.5 py-1 text-xs font-semibold uppercase transition-colors text-slate hover:text-bark';
-                }
-            });
+            const selector = document.getElementById('language-selector');
+            selector.value = selectedLanguage;
+            selector.setAttribute('aria-label', messages.languageLabel);
         }
-
-        // Asignar listeners a los botones e inicializar idioma
-        document.querySelectorAll('.lang-btn').forEach((btn) => {
-            btn.addEventListener('click', () => setLanguage(btn.dataset.lang));
-        });
-
-        const browserLanguage = (navigator.languages && navigator.languages[0]) || navigator.language || 'es';
-        const initialLanguage = browserLanguage.toLowerCase().split('-')[0] === 'ca' ? 'ca' : 'es';
-
-        setLanguage(initialLanguage);
-        lucide.createIcons();
 
         // Cambio de tabs Windows / Ubuntu
         document.querySelectorAll('.tab-btn').forEach(btn => {
@@ -828,9 +805,17 @@ EOF</code>
                 document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
                 btn.classList.add('active');
                 document.getElementById('tab-' + tab).classList.add('active');
+                // Re-render lucide icons por si acaso
                 lucide.createIcons();
             });
         });
+
+        const browserLanguage = (navigator.languages && navigator.languages[0]) || navigator.language || 'es';
+        const initialLanguage = browserLanguage.toLowerCase().split('-')[0] === 'ca' ? 'ca' : 'es';
+        const languageSelector = document.getElementById('language-selector');
+        languageSelector.addEventListener('change', (event) => setLanguage(event.target.value));
+        setLanguage(initialLanguage);
+        lucide.createIcons();
     </script>
 </body>
 </html>
